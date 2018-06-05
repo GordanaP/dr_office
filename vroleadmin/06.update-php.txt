@@ -1,0 +1,24 @@
+app\Http\Controllers\User\RoleController
+-----------------------------------------
+    public function update(RoleRequest $request, Role $role)
+    {
+        $role->saveChanges($request);
+
+        return message("The role name has been updated");
+    }
+
+
+app\Role.php
+-----------
+    /**
+     * Update the role.
+     *
+     * @param  array $data
+     * @return void
+     */
+    public function saveChanges($data) {
+
+        $this->name = $data['name'];
+
+        $this->save();
+    }

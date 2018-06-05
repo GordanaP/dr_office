@@ -1,0 +1,61 @@
+App\Http\Controlles\User\RoleController.php
+---------------------------------------------
+    public function store(RoleRequest $request)
+    {
+        Role::createNew($request);
+
+        return message("A new role has been created");
+    }
+
+
+Role.php
+--------
+    /**
+     * Create a new role.
+     *
+     * @param  array $data
+     * @return void
+     */
+    public static function createNew($data)
+    {
+        $role = new static;
+
+        $role->name = $data['name'];
+
+        $role->save();
+    }
+
+
+php artisan make:request RoleRequest
+------------------------------------
+
+
+app\Http\Requests\RoleRequest
+-----------------------------
+    public function rules()
+    {
+         return [
+            'name' => [
+                'required', 'max:50',
+                new AlphaNumSpace,
+                'unique:roles,name,'.optional($this->role)->id,
+            ]
+        ];
+    }
+
+
+php artisan make:rule AlphaNumSpace
+-----------------------------------
+
+
+app\Rules\AlphaNumSpace
+-----------------------
+    public function passes($attribute, $value)
+    {
+        return preg_match('/^[a-zA-Z1-9 ]+$/', $value);
+    }
+
+    public function message()
+    {
+        return 'The :attribute may contain only letters, numbers, and spaces.';
+    }

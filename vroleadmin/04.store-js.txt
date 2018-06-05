@@ -1,0 +1,188 @@
+resources\views\users\roles\index.blade.php
+-------------------------------------------
+    @section('scripts')
+        <script>
+
+            var roleModal = $("#roleModal")
+            var roleForm = $("#roleForm")
+            var rolesIndexUrl = "{{ route('admin.roles.index') }}"
+            var roleFields = ['name']
+
+            setAutofocus(roleModal, 'name')
+            emptyModal(roleModal, roleForm, roleFileds)
+
+            // Create role
+            $(document).on("click", '#createRole', function(){
+
+                roleModal.modal('show')
+
+                $('.modal-title i').addClass('fa-briefcase')
+                $('.modal-title span').text('New role')
+                $('.btn-role').text('Save').attr('id', 'storeRole');
+            })
+
+            // Store
+            var data = {
+                name: $('#name').val()
+            }
+
+            $.ajax({
+                url: rolesIndexUrl,
+                method: "POST",
+                data: data,
+                success: function(response){
+                    $('#displayRoles').load(location.href + " #displayRoles") //!!! mind blank space !!!
+                    successResponse(roleModal, response.message)
+                },
+                error: function(response) {
+                    errorResponse(response.responseJSON.errors, roleModal)
+                }
+            })
+
+        </script>
+    @endsection
+
+    public\js\helpers.js
+    --------------------
+        /**
+         * Success ajax response.
+         *
+         * @param  {string} modal
+         * @param  {string} message
+         * @return {void}
+         */
+        function successResponse(modal, message)
+        {
+            userNotification(message)
+            modal.modal("hide")
+        }
+
+        /**
+         * Set modal autofocus field
+         *
+         * @param {string} modal
+         * @param {string} inputId
+         * @return {void}
+         */
+        function setAutofocus(modal, inputId)
+        {
+            modal.on('shown.bs.modal', function () {
+                $(this).find("#" + inputId).focus()
+            })
+        }
+
+        /**
+         * Empty the modal upon close.
+         *
+         * @param  {array} fields
+         * @param  {object} form
+         * @return {void}
+         */
+        function emptyModal(modal, form, formFields) {
+
+            modal.on("hidden.bs.modal", function() {
+
+                // Clear the form values
+                clearForm(form)
+
+                // Clear the server side errors
+                clearServerErrors(formFields)
+            })
+
+        /**
+         * Clear the form values.
+         *
+         * @param  {object} form
+         * @return {void}
+         */
+        function clearForm(form)
+        {
+            form.find("input[type=text], input[type=password], textarea").val('').end()
+        }
+
+        /**
+         * Remove all server side errors.
+         *
+         * @param  {array} fields
+         * @return void
+         */
+        function clearServerErrors(fields)
+        {
+            $.each(fields, function (index, field) {
+              clearError(field)
+            });
+        }
+
+        /**
+         * Remove the server side error for a specified field.
+         *
+         * @param  {string} field
+         * @return void
+         */
+        function clearError(field)
+        {
+            var field = $("."+field);
+            var feedback = $("span."+field).hide();
+
+            field.removeClass('is-invalid');
+            feedback.text('');
+        }
+
+
+        /**
+         * Ajax error response
+         *
+         * @param  {array} errors
+         * @param  {string} modal
+         * @return {[void]}
+         */
+        function errorResponse(errors)
+        {
+            displayErrors(errors)
+            clearErrorOnNewInput()
+        }
+
+        /**
+         * Display validation error messages for all form fields.
+         *
+         * @param  {array} errors
+         * @return void
+         */
+        function displayErrors(errors)
+        {
+            for (let error in errors)
+            {
+                var field = $("."+error)
+                var feedback = $("span."+error).show()
+
+                // Attach server side validation
+                displayServerError(field, feedback, errors[error][0])
+            }
+        }
+
+        /**
+         * Display server error.
+         *
+         * @param  {string} field
+         * @param  {string} feedback
+         * @param  {string} error
+         * @return {void}
+         */
+        function displayServerError(field, feedback, error)
+        {
+            field.addClass('is-invalid')
+            feedback.text(error)
+        }
+
+        /**
+         * Remove the error on inserting the new value.
+         *
+         * @return void
+         */
+        function clearErrorOnNewInput()
+        {
+            $("input, textarea").on('keydown', function () {
+
+                clearError($(this).attr('name'));
+            });
+        }

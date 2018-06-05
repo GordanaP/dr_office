@@ -1,0 +1,37 @@
+App\Http\Controlles\User\RoleController.php
+---------------------------------------------
+    public function destroy(Role $role)
+    {
+        $role->delete();
+
+        return message("The role has been deleted");
+    }
+
+
+app\resources\views\users\roles\index.blade.php
+------------------------------------------------
+    @section('scripts')
+    <script>
+
+        $(document).on("click", '#deleteRole', function() {
+
+            var role = $(this).val();
+            var rolesDeleteUrl = rolesIndexUrl + '/' + role
+
+            $.ajax({
+                url : rolesDeleteUrl,
+                type: "DELETE",
+                success: function(response) {
+
+                    $('#displayRoles').load(location.href + " #displayRoles")
+                    successResponse(roleModal, response.message)
+                },
+                error: function(response) {
+
+                    errorResponse(response.responseJSON.errors, roleModal)
+                }
+            })
+        })
+
+    </script>
+    @endsection

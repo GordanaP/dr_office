@@ -1,0 +1,114 @@
+resources\views\roles\index.php
+--------------------------------
+    @extends('layouts.admin')
+
+    @section('title', '| Admin | Roles')
+
+    @section('content')
+    @endsection
+
+    @section('scripts')
+    @endsection
+
+
+routes\web.php
+--------------
+    /**
+     * Admin
+     */
+    Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
+
+        /**
+         * Role
+         */
+        Route::resource('/roles', 'RoleController');
+    });
+
+
+php artisan make:controller User\\RoleController --resource --model=Role
+------------------------------------------------------------------------
+
+
+App\Htpp\Controllers\User\RoleController
+-----------------------------------------
+    public function index()
+    {
+        $roles = Role::all();
+
+        return view('users.roles.index', compact('roles'));
+    }
+
+
+resources\views\partials\admin\_side.blade.php
+-----------------------------------------------
+    <li class="nav-item">
+        <a class="nav-link  {{ set_active_link('roles', 2) }}" href="{{ route('admin.roles.index') }}">
+            <span data-feather="briefcase"></span>
+            Roles
+        </a>
+    </li>
+
+
+resources\views\roles\index.php
+--------------------------------
+    @section('content')
+
+        <div class="pb-2 mb-3 col-md-12">
+            <h1 class="h2 flex align-center justify-between">
+                <span>Roles</span>
+                <button class="btn btn-warning" id="createRole">New role</button>
+            </h1>
+
+            <hr>
+
+            <div id="displayRoles">
+                @if ($roles->count())
+                    @foreach ($roles->chunk(3) as $chunk)
+                        <div class="row mb-2" id="roleCard">
+                            @each('users.roles.partials._card', $chunk, 'role')
+                        </div>
+                    @endforeach
+                @else
+                    No roles were found.
+                @endif
+            </div>
+        </div>
+
+
+        <!-- Role Modal -->
+        @include('users.roles.partials._modal')
+
+    @endsection
+
+
+resources\views\users\roles\partials\_card.blade.php
+----------------------------------------------------
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow bg-lightest-grey">
+            <div class="card-body">
+                <h5 class="mb-3">
+                    <a class="ls-1 text-uppercase text-bold-grey">
+                        {{ $role->name }}
+                    </a>
+                </h5>
+
+                <p class="card-text">
+                    This is a wider card with supporting text below as a natural lead-in to additional content.
+                </p>
+
+                <div class="flex justify-between">
+                    <div>
+                        <a class="btn btn-danger btn-edit" href="#">
+                            Details
+                        </a>
+                        <button type="button" class="btn btn-danger btn-delete" id="editRole" value="{{ $role->id }}">
+                            Edit
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-delete" id="deleteRole" value="{{ $role->id }}">
+                        <i class="fa fa-trash fs-18"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

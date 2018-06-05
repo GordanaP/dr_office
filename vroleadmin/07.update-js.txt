@@ -1,0 +1,32 @@
+app\resources\views\users\roles\index.blade.php
+--------------------------------------------------
+    @section('scripts')
+    <script>
+
+        $(document).on("click", '#updateRole', function() {
+
+            var role = $(this).val()
+            var rolesUpdateUrl = rolesIndexUrl + '/' + role
+
+            var data = {
+                name: $('#name').val()
+            }
+
+            $.ajax({
+                url : rolesUpdateUrl,
+                type: "PUT",
+                data: data,
+                success: function(response) {
+
+                    $('#displayRoles').load(location.href + " #displayRoles")
+                    successResponse(roleModal, response.message)
+                },
+                error: function(response) {
+
+                    errorResponse(response.responseJSON.errors, roleModal)
+                }
+            })
+        })
+
+    </script>
+    @endsection

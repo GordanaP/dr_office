@@ -1,0 +1,41 @@
+app\Http\Controllers\User\RoleController
+-----------------------------------------
+    public function show(Role $role)
+    {
+        return response([
+            'role' => $role
+        ]);
+    }
+
+
+app\resources\views\users\roles\index.blade.php
+--------------------------------------------------
+@section('scripts')
+<script>
+
+    $(document).on("click", '#editRole', function() {
+
+        roleModal.modal('show')
+
+        var role = $(this).val()
+        var rolesShowUrl = rolesIndexUrl + '/' + role
+
+        $('.modal-title i').addClass('fa-briefcase')
+        $('.modal-title span').text('Edit role')
+        $('.btn-role').text('Save changes').attr('id', 'updateRole').val(role); // !!! assign role as the update button value !!!
+
+        $.ajax({
+            url : rolesShowUrl,
+            type: "GET",
+            success: function(response) {
+
+                var role = response.role
+
+                $('#name').val(role.name)
+            }
+        })
+    })
+
+</script>
+@endsection
+
