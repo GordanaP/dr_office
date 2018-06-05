@@ -19,8 +19,6 @@ Route::namespace('Auth')->group(function(){
     Route::get('/password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
 });
 
-// Auth::routes();
-
 /**
  * Page
  */
@@ -66,7 +64,7 @@ Route::prefix('settings')->namespace('User')->name('users.')->group(function() {
 /**
  * Admin
  */
-Route::prefix('admin')->namespace('User')->name('admin.')->middleware('auth.admin')->group(function() {
+Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
 
     /**
      * Account

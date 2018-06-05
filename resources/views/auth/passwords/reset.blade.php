@@ -2,9 +2,6 @@
 
 @section('title', '| Reset Password')
 
-@section('links')
-    <link rel="stylesheet" href="{{ asset('vendor/formvalidation/dist/css/formValidation.min.css') }}">
-@endsection
 
 @section('content')
     <div class="container">
@@ -23,10 +20,9 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('vendor/formvalidation/dist/js/formValidation.min.js') }}"></script>
-    <script src="{{ asset('vendor/formvalidation/dist/js/framework/bootstrap4.min.js') }}"></script>
-
     <script>
-        @include('validators.auth._reset')
+
+        clearErrorOnNewInput()
+
     </script>
 @endsection

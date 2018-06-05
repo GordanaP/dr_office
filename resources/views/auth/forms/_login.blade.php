@@ -7,7 +7,7 @@
         <label for="email" class="col-sm-4 col-form-label text-md-right">E-Mail Address</label>
 
         <div class="col-md-6">
-            <input id="email" type="email" class="email form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+            <input id="email" type="email" class="email form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" autofocus>
 
             @if ($errors->has('email'))
             <span class="invalid-feedback email">
@@ -22,10 +22,10 @@
         <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
         <div class="col-md-6">
-            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+            <input id="password" type="password" class="password form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password">
 
             @if ($errors->has('password'))
-            <span class="invalid-feedback">
+            <span class="invalid-feedback password">
                 <strong>{{ $errors->first('password') }}</strong>
             </span>
             @endif

@@ -21,13 +21,11 @@
         @endslot
     @endcomponent
 
-    @can('access', 'App\User')
-        @include('users.accounts.partials.modals._create')
-        @include('users.accounts.partials.modals._edit')
-        @include('users.accounts.partials.modals._revokeRoles')
-        @include('users.profiles.partials.modals._edit')
-        @include('users.avatars.partials.modals._edit')
-    @endcan
+    @include('users.accounts.partials.modals._create')
+    @include('users.accounts.partials.modals._edit')
+    @include('users.accounts.partials.modals._revokeRoles')
+    @include('users.profiles.partials.modals._edit')
+    @include('users.avatars.partials.modals._edit')
 
 @endsection
 

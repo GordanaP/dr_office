@@ -15,7 +15,7 @@ class PageController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only('home', 'settings');
-        $this->middleware('auth.admin')->only('dashboard', 'settings');
+        // $this->middleware('auth.admin')->only('dashboard', 'settings');
     }
 
     /**
