@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-account admin-modal-btn" id="saveAvatar">Save changes</button>
+                    <button type="button" class="btn btn-primary btn-account admin-modal-btn" id="saveAvatar">Save changes</button>
                     <button type="button" class="btn  btn-secondary admin-modal-btn-close" data-dismiss="modal">Close</button>
                 </div>
             </form>

@@ -374,7 +374,7 @@ $.fn.emptyModal = function(fields, form, checked_field, hidden_field) {
         clearServerErrors(fields)
 
         // Clear the client side errors
-        form.formValidation('resetForm', true);
+        //form.formValidation('resetForm', true);
     })
 }
 

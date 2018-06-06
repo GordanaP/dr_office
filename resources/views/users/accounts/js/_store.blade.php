@@ -1,23 +1,26 @@
-var field = $("#auto_password");
-var password = generatePassword(field);
+$(document).on('click', '#storeAccount', function() {
 
-var data = {
-    role_id: $("#role_id").val(),
-    name : $("#name").val(),
-    email : $("#email").val(),
-    password: password,
-}
+    var field = $("#auto_password");
+    var password = generatePassword(field);
 
-$.ajax({
-    url: adminAccountsUrl,
-    type: "POST",
-    data: data,
-    success: function(response) {
-
-        datatable.ajax.reload()
-        successResponse(createAccountModal, response.message)
-    },
-    error: function(response) {
-        errorResponse(response.responseJSON.errors, createAccountModal)
+    var data = {
+        role_id: $("#role_id").val(),
+        name : $("#name").val(),
+        email : $("#email").val(),
+        password: password,
     }
+
+    $.ajax({
+        url: adminAccountsUrl,
+        type: "POST",
+        data: data,
+        success: function(response) {
+
+            datatable.ajax.reload()
+            successResponse(createAccountModal, response.message)
+        },
+        error: function(response) {
+            errorResponse(response.responseJSON.errors, createAccountModal)
+        }
+    })
 })

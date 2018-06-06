@@ -7,21 +7,6 @@
     @method('PUT')
     @csrf
 
-    <!-- Name -->
-    <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right"><sup><i class="fa fa-asterisk fa-form red"></i></sup> Name</label>
-
-        <div class="col-md-6">
-            <input type="text" class="name form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"  id="name" name="name" placeholder="Enter your name" value="{{ old('name') ?: $user->name }}" autofocus />
-
-            @if ($errors->has('name'))
-                <span class="name invalid-feedback">
-                    <strong>{{ $errors->first('name') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
-
     <!-- Email -->
     <div class="form-group row">
         <label for="email" class="col-md-4 col-form-label text-md-right"><sup><i class="fa fa-asterisk fa-form red"></i></sup> E-Mail Address</label>

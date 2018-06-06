@@ -147,10 +147,6 @@ class AccountController extends Controller
 
             return message('The account has been deleted.');
         }
-
-        Auth::user()->deleteAccount($this->avatarPath);
-
-        return $this->deleted();
     }
 
     /**
@@ -163,17 +159,5 @@ class AccountController extends Controller
         $response = message('Your account has been saved.');
 
         return redirect()->route('users.accounts.edit')->with($response);
-    }
-
-    /**
-     * Get the response for a successfull account deletion.
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
-    protected function deleted()
-    {
-        $response = message('Your account has been deleted.');
-
-        return redirect()->route('index')->with($response);
     }
 }

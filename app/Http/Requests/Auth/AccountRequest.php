@@ -44,7 +44,7 @@ class AccountRequest extends FormRequest
             case 'PATCH':
                 return [
                     'role_id' => 'exists:roles,id',
-                    'name' => 'required|string|alpha_num|max:30',
+                    'name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
                     'email' => 'required|string|email|max:100|unique:users,email,'.$userId,
                     'password' => [
                         'nullable',

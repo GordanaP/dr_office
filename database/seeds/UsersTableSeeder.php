@@ -13,11 +13,11 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Gordana',
+                'name' => 'gvlajkovic',
                 'email' => 'g@gmail.com'
             ],
             [
-                'name' => 'Darko',
+                'name' => 'dvlajkovic',
                 'email' => 'd@gmail.com'
             ],
         ];
@@ -31,6 +31,6 @@ class UsersTableSeeder extends Seeder
             ]);
         }
 
-        factory(App\User::class, 15)->create();
+        //factory(App\User::class, 15)->create();
     }
 }

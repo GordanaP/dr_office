@@ -4,13 +4,13 @@ $(document).on('click', '#editRoles', function() {
 
     var user = $(this).attr('data-user');
     var username = $(this).attr('data-name');
-    var UserRolesUrl = adminAccountsUrl + '/' + user
+    var userRolesUrl = adminAccountsUrl + '/' + user
 
     $(".modal-title span").text(username)
     $("#revokeRoles").val(user) // attach user
 
     $.ajax({
-        url: UserRolesUrl,
+        url: userRolesUrl,
         type: "GET",
         success: function(response) {
             $('#role').html(response.html);

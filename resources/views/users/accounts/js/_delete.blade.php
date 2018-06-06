@@ -1,7 +1,7 @@
-$(document).on('click', '#deleteAccount', function(){
+$(document).on('click', '#deleteAccount', function() {
 
-    var user = $(this).val()
-    var adminAccountsDeleteUrl = '/admin/accounts/' + user
+    var user = $(this).val();
+    var deleteAccountUrl = '/admin/accounts/' + user
 
-    swalDelete(adminAccountsDeleteUrl, 'account', datatable)
+    swalDelete(deleteAccountUrl, 'account', datatable)
 })

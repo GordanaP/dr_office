@@ -33,11 +33,15 @@ trait HasAccount
      */
     public function updateAccount($data)
     {
-        $slug = $this->getSlug($data['name']);
-
-        $this->name = $data['name'];
         $this->email = $data['email'];
-        $this->slug = $slug;
+
+        if ($data['name'])
+        {
+            $this->name = $data['name'];
+
+            $slug = $this->getSlug($data['name']);
+            $this->slug = $slug;
+        }
 
         if($data['password'])
         {

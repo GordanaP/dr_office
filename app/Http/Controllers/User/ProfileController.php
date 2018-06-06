@@ -89,11 +89,6 @@ class ProfileController extends Controller
             $user->deleteProfile();
             return message('The profile has been deleted.');
         }
-
-        Auth::user()->deleteProfile();
-
-        return $this->deleted();
-
     }
 
     /**
@@ -104,18 +99,6 @@ class ProfileController extends Controller
     protected function updated()
     {
         $response = message('Your profile has been saved.');
-
-        return back()->with($response);
-    }
-
-    /**
-     * Get the response for the successfully deleted profile.
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
-    protected function deleted()
-    {
-        $response = message('Your profile has been deleted.');
 
         return back()->with($response);
     }

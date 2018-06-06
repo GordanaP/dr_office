@@ -1,6 +1,6 @@
 $(document).on('click', '#createAccount', function() {
 
-    createAccountModal.modal('show')
+    createAccountModal.modal('show');
 
-    toggleHiddenFieldWithCheckbox(auto_password, password)
+    toggleHiddenFieldWithCheckbox(auto_password, password);
 });

@@ -43,7 +43,7 @@
                 <div class="modal-footer flex justify-between">
                     <button type="button" class="btn btn-danger btn-profile admin-modal-btn-delete" id="deleteProfile">Delete</button>
                     <div>
-                        <button type="submit" class="btn btn-primary btn-profile admin-modal-btn" id="saveProfile">Save changes</button>
+                        <button type="button" class="btn btn-primary btn-profile admin-modal-btn" id="saveProfile">Save changes</button>
                         <button type="button" class="btn btn-secondary admin-modal-btn-close" data-dismiss="modal">Close</button>
                     </div>
                 </div>

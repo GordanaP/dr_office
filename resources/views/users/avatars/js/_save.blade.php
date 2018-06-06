@@ -1,28 +1,31 @@
-var user = $('#saveAvatar').val()
-var updateAvatarUrl = '/admin/avatars/' + user
+$(document).on('click', '#saveAvatar', function() {
 
-var formData = new FormData(avatarForm[0])
-formData.append('_method', 'PUT');
+    var user = $(this).val()
+    var updateAvatarUrl = '/admin/avatars/' + user
 
-$.ajax({
-    url : updateAvatarUrl,
-    type : "POST",
-    data : formData,
-    contentType: false,
-    processData: false,
-    success: function(response)
-    {
-        if(datatable) {
-            datatable.ajax.reload()
+    var formData = new FormData(avatarForm[0])
+    formData.append('_method', 'PUT');
+
+    $.ajax({
+        url : updateAvatarUrl,
+        type : "POST",
+        data : formData,
+        contentType: false,
+        processData: false,
+        success: function(response)
+        {
+            if(datatable) {
+                datatable.ajax.reload()
+            }
+
+            $('#displayUserAvatar').load(location.href + ' #displayUserAvatar')
+            $('#myAvatar').load(location.href + ' #myAvatar')
+
+            successResponse(avatarModal, response.message)
+        },
+        error: function(response)
+        {
+            errorResponse(response.responseJSON.errors, avatarModal)
         }
-
-        $('#displayUserAvatar').load(location.href + ' #displayUserAvatar')
-        $('#myAvatar').load(location.href + ' #myAvatar')
-
-        successResponse(avatarModal, response.message)
-    },
-    error: function(response)
-    {
-        errorResponse(response.responseJSON.errors, avatarModal)
-    }
+    })
 })

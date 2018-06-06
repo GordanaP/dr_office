@@ -70,13 +70,13 @@
         @include('users.accounts.js._edit')
 
         // Update account
-        @include('admin.settings.js._JSvalidation')
+        @include('users.accounts.js._update')
 
         // Edit profile
         @include('users.profiles.js._edit')
 
         // Update profile
-        @include('users.profiles.js._JSvalidation')
+        @include('users.profiles.js._save')
 
         // Delete profile
         @include('users.profiles.js._delete')
@@ -85,7 +85,7 @@
         @include('users.avatars.js._edit')
 
         // Update avatar
-        @include('users.avatars.js._JSvalidate')
+        @include('users.avatars.js._save')
 
     </script>
 @endsection

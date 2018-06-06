@@ -37,6 +37,13 @@
 
     <script>
 
+        // initialize select.2
+        $('select.role_id')
+        .select2({
+            placeholder: "Select role(s)",
+            width: "100%"
+        });
+
         var table = $('#accountsTable')
 
         // ACCOUNT
@@ -86,9 +93,23 @@
         avatarModal.setAutofocus('avatar_options')
         avatarModal.emptyModal(avatarFields, avatarForm)
 
-
         // Datatable
         @include('users.accounts.partials.tables._datatable')
+
+        // Create account
+        @include('users.accounts.js._create')
+
+        // Store account
+        @include('users.accounts.js._store')
+
+        // Edit account
+        @include('users.accounts.js._edit')
+
+        // Update account
+        @include('users.accounts.js._update')
+
+        // Delete account
+        @include('users.accounts.js._delete')
 
         // Edit user roles
         @include('users.accounts.js._editRoles')
@@ -96,26 +117,11 @@
         // Revoke user role(s)
         @include('users.accounts.js._revokeRoles')
 
-        // Create account
-        @include('users.accounts.js._create')
-
-        // Store account
-        @include('users.accounts.js._JSvalidationStore')
-
-        // Edit account
-        @include('users.accounts.js._edit')
-
-        // Update account
-        @include('users.accounts.js._JSvalidatationUpdate')
-
-        // Delete account
-        @include('users.accounts.js._delete')
-
         // Edit profile
         @include('users.profiles.js._edit')
 
         // Save profile
-        @include('users.profiles.js._JSvalidation')
+        @include('users.profiles.js._save')
 
         // Delete profile
         @include('users.profiles.js._delete')
@@ -124,7 +130,7 @@
         @include('users.avatars.js._edit')
 
         // Save Avatar
-        @include('users.avatars.js._JSvalidate')
+        @include('users.avatars.js._save')
 
     </script>
 

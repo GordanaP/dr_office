@@ -1,29 +1,32 @@
-var user = $('#updateAccount').val()
-var adminAccountsUpdateUrl = adminAccountsUrl + '/' + user
+$(document).on('click', '#updateAccount', function() {
 
-var password = changePassword()
-var checked = $("form input[type='radio']:checked").val();
+    var user = $(this).val()
+    var updateAccountUrl = adminAccountsUrl + '/' + user
 
-var data = {
-    role_id: $("#_role_id").val(),
-    name : $("#_name").val(),
-    email : $("#_email").val(),
-    create_password: checked,
-    password: password,
-    password_confirmation: password,
-}
+    var password = changePassword()
+    var checked = $("form input[type='radio']:checked").val();
 
-$.ajax({
-    url : adminAccountsUpdateUrl,
-    type : "PUT",
-    data: data,
-    success : function(response) {
-        $('#myAccount').load(location.href + ' #myAccount')
-        $('#displayUserName').load(location.href + ' #displayUserName')
-        datatable ? datatable.ajax.reload() : ''
-        successResponse(editAccountModal, response.message)
-    },
-    error: function(response) {
-        errorResponse(response.responseJSON.errors, editAccountModal)
+    var data = {
+        role_id: $("#_role_id").val(),
+        name : $("#_name").val(),
+        email : $("#_email").val(),
+        create_password: checked,
+        password: password,
+        password_confirmation: password,
     }
-})
+
+    $.ajax({
+        url : updateAccountUrl,
+        type : "PUT",
+        data: data,
+        success : function(response) {
+            $('#myAccount').load(location.href + ' #myAccount')
+            $('#displayUserName').load(location.href + ' #displayUserName')
+            datatable ? datatable.ajax.reload() : ''
+            successResponse(editAccountModal, response.message)
+        },
+        error: function(response) {
+            errorResponse(response.responseJSON.errors, editAccountModal)
+        }
+    })
+});

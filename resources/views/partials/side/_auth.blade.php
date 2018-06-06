@@ -6,10 +6,6 @@
             Edit account
         </a>
     </li>
-
-    <li class="list-group-item side-list-group-item">
-        @include('users.accounts.partials.forms._delete')
-    </li>
 </ul>
 
 <p class="side-list-label">My profile</p>
