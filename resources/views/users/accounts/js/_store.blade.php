@@ -1,7 +1,7 @@
 $(document).on('click', '#storeAccount', function() {
 
-    var field = $("#auto_password");
-    var password = generatePassword(field);
+    var passwordField = $("#auto_password");
+    var password = generatePassword(passwordField);
 
     var data = {
         role_id: $("#role_id").val(),

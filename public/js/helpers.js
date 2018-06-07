@@ -298,10 +298,10 @@ function successResponse(modal, message)
  * @param {string} inputId
  * @return {void}
  */
-$.fn.setAutofocus = function(inputId)
+$.fn.setAutofocus = function(field)
 {
     $(this).on('shown.bs.modal', function () {
-        $(this).find("#" + inputId).focus()
+        $(this).find(field).focus()
     })
 }
 
@@ -363,19 +363,16 @@ function changePassword()
  * @param  {string} hidden_filed
  * @return {void}
  */
-$.fn.emptyModal = function(fields, form, checked_field, hidden_field) {
+$.fn.emptyModal = function(fields, checked_field, hidden_field) {
 
     $(this).on("hidden.bs.modal", function() {
 
-        // Clear the form values
+        // Remove form values
         clearForm(this, checked_field, hidden_field)
 
-        // Clear the server side errors
+        // Remove server side errors
         clearServerErrors(fields)
-
-        // Clear the client side errors
-        //form.formValidation('resetForm', true);
-    })
+    });
 }
 
 /**
@@ -384,21 +381,20 @@ $.fn.emptyModal = function(fields, form, checked_field, hidden_field) {
  * @param  {object} form
  * @return {void}
  */
-function clearForm(form, checked_field, hidden_field)
-{
-    $(form)
-        .find("input[type=text], input[type=password], input[type=file], textarea")
-        .val('').end()
-        .find("select")
-        .val(null).trigger('change')
-        .find("input[type=checkbox], input[type=radio]")
-        .prop("checked", "").end()
+ function clearForm(modal, checked_field, hidden_field)
+ {
+    $(modal).find('form').trigger('reset').end()
 
-    $(form)
-        .find(checked_field).prop('checked', true)
+    .find("select").val(null).trigger('change').end()
 
-    hidden_field ? hidden_field.hide() : ''
-}
+    .find("input:checkbox, input:radio").prop("checked", false)
+
+
+    $(modal).find(checked_field).prop('checked', true)
+
+    _password ? _password.hide() : ''
+
+ }
 
 /**
  * Remove all server side errors.
@@ -408,7 +404,7 @@ function clearForm(form, checked_field, hidden_field)
  */
 function clearServerErrors(fields)
 {
-    $.each(fields, function (index, name){
+    $.each(fields, function (index, name) {
       clearError(name)
     });
 }

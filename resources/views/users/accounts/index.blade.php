@@ -53,29 +53,31 @@
         // Create account
         var createAccountModal = $('#createAccountModal')
         var createAccountForm = $('#createAccountForm')
+        var roleId = $('#role_id')
         var auto_password = $('#auto_password')
         var password = $("#password")
         password.hide()
 
-        createAccountModal.setAutofocus('role_id')
-        createAccountModal.emptyModal(accountFields, createAccountForm, auto_password, password)
+        createAccountModal.setAutofocus(roleId)
+        createAccountModal.emptyModal(accountFields, auto_password, password)
 
         // Edit account
         var editAccountModal = $('#editAccountModal')
         var editAccountForm = $('#editAccountForm')
+        var _roleId = $('#_role_id')
         var _unchanged_password = $('#_unchanged_password')
         var _password = $("#_password")
         _password.hide()
 
-        editAccountModal.setAutofocus('_role_id')
-        editAccountModal.emptyModal(accountFields, editAccountForm, _unchanged_password, _password)
+        editAccountModal.setAutofocus(_roleId)
+        editAccountModal.emptyModal(accountFields, _unchanged_password, _password)
 
         // Revoke roles
         var revokeRolesModal = $('#revokeRolesModal')
         var revokeRolesForm = $('#revokeRolesForm')
         var revokeFields = ['role_id']
 
-        revokeRolesModal.emptyModal(revokeFields, revokeRolesForm)
+        revokeRolesModal.emptyModal(revokeFields)
 
         // Profile
         var profileModal = $('#profileModal')
@@ -83,7 +85,7 @@
         var profileFields = ['name', 'about', 'location']
 
         profileModal.setAutofocus('profileName')
-        profileModal.emptyModal(profileFields, profileForm)
+        profileModal.emptyModal(profileFields)
 
         // Avatar
         var avatarModal = $('#avatarModal')
@@ -91,7 +93,7 @@
         var avatarFields = ['avatar_options', 'avatar']
 
         avatarModal.setAutofocus('avatar_options')
-        avatarModal.emptyModal(avatarFields, avatarForm)
+        avatarModal.emptyModal(avatarFields)
 
         // Datatable
         @include('users.accounts.partials.tables._datatable')

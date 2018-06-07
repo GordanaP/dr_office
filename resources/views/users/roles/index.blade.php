@@ -23,13 +23,14 @@
 @section('scripts')
     <script>
 
-        var roleModal = $("#roleModal")
-        var roleForm = $("#roleForm")
         var rolesIndexUrl = "{{ route('admin.roles.index') }}"
+        var roleModal = $('#roleModal')
+        var roleForm = $('#roleForm')
+        var roleName = $('#name')
         var roleFields = ['name']
 
-        roleModal.setAutofocus('name')
-        roleModal.emptyModal(roleFields, roleForm)
+        roleModal.setAutofocus(roleName)
+        roleModal.emptyModal(roleFields)
 
         // Create role
         @include('users.roles.js._create')
@@ -37,8 +38,11 @@
         // Edit role
         @include('users.roles.js._edit')
 
-        // Store & update with client side validation
-        @include('users.roles.js._JSvalidation')
+        // Store role
+        @include('users.roles.js._store')
+
+        // Edit role
+        @include('users.roles.js._update')
 
         // Delete role
         @include('users.roles.js._delete')
