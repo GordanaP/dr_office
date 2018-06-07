@@ -50,7 +50,7 @@ class ActivationController extends Controller
      */
     public function store(ActivationTokenRequest $request)
     {
-        $user = User::findBy($request->email);
+        $user = User::where('email', $request->email)->first();
 
         ActivationToken::generateNewFor($user);
 

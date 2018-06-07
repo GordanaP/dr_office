@@ -4,7 +4,6 @@ namespace App;
 
 use App\Observers\UserObserver;
 use App\Role;
-use App\Traits\User\HasAccount;
 use App\Traits\User\HasAvatar;
 use App\Traits\User\HasProfile;
 use App\Traits\User\HasRoles;
@@ -16,21 +15,11 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable,
-    HasAccount,
     HasAvatar,
     HasProfile,
     HasRoles,
     HasSlug,
     VerifiesEmail;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password'
-    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -100,9 +89,14 @@ class User extends Authenticatable
      * @param  string $field
      * @return App\Usser
      */
-    public static function findBy($value, $field='email')
+    // public static function findBy($value, $field='email')
+    // {
+    //     return static::where($field, $value)->firstOrFail();
+    // }
+
+    public function setPasswordAttribute($value)
     {
-        return static::where($field, $value)->firstOrFail();
+        return $this->attributes['password'] = bcrypt($value);
     }
 
 }

@@ -51,17 +51,4 @@ trait HasSlug
                 ->first();
     }
 
-    /**
-     * Create the user name slug during account update.
-     *
-     * @param  string $name
-     * @param  string $slug
-     * @param  array $data
-     * @return string
-     */
-    protected function getSlug($name)
-    {
-        return strtolower($this->name) === strtolower($name) ?  $this->slug : static::uniqueNameSlug($name);
-    }
-
 }

@@ -7,14 +7,16 @@ use App\Events\Auth\AccountUpdatedByAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AccountRequest;
 use App\Role;
+use App\Services\Models\UserService;
 use App\Traits\ModelFinder;
 use App\User;
 use Auth;
-use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
     use ModelFinder;
+
+    protected $users;
 
     protected $avatarPath = 'images/avatars';
 
@@ -23,8 +25,10 @@ class AccountController extends Controller
      *
      * @return  void
      */
-    public function __construct()
+    public function __construct(UserService $users)
     {
+        $this->users = $users;
+
         $this->middleware('auth');
     }
 
@@ -37,7 +41,7 @@ class AccountController extends Controller
     {
         if (request()->ajax()) {
 
-            $users = $this->getUsers();
+            $users = $this->users->get();
 
             return [ 'data' => $users ];
         }
@@ -63,7 +67,7 @@ class AccountController extends Controller
      */
     public function store(AccountRequest $request)
     {
-        $user = User::createAccount($request);
+        $user = $this->users->createAccount($request);
 
         event(new AccountCreatedByAdmin($user, $request->password));
 
@@ -80,7 +84,7 @@ class AccountController extends Controller
     {
         if(request()->ajax()) {
 
-            $user = User::findBy($userId, 'id');
+            $user = User::find($userId);
 
             $html = view('users.roles.partials._html', compact('user'))->render();
 
@@ -97,7 +101,7 @@ class AccountController extends Controller
      * @userId  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit()
     {
         return view('users.accounts.edit')->with([
             'user' => Auth::user()
@@ -115,9 +119,9 @@ class AccountController extends Controller
     {
         if ($request->ajax()) {
 
-            $user = User::findBy($userId, 'id');
+            $this->users->updateAccount($userId, $request);
 
-            $user->load('roles')->updateAccount($request);
+            $user = User::find($userId);
 
             if(! $user->isAdmin()) {
                 event(new AccountUpdatedByAdmin($user, $request->password));
@@ -126,7 +130,7 @@ class AccountController extends Controller
             return message('The account has been updated');
         }
 
-        Auth::user()->updateAccount($request);
+        $this->users->updateAccount(Auth::id(), $request);
 
         return $this->updated();
     }
@@ -137,13 +141,11 @@ class AccountController extends Controller
      * @userId  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($userId = null)
+    public function destroy($userId)
     {
         if (request()->ajax()) {
 
-            $user = User::findBy($userId, 'id');
-
-            $user->deleteAccount($this->avatarPath);
+            $this->users->deleteAccount($userId, $this->avatarPath);
 
             return message('The account has been deleted.');
         }

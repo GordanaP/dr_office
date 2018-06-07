@@ -60,7 +60,7 @@ var datatable = table.DataTable({
             visible: false
         }
     ],
-    "order": [6, 'desc'],
+    "order": [2, 'asc'],
     responsive: true,
     columnDefs: [
         { responsivePriority: 1, targets: 0 },
