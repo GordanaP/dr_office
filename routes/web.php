@@ -47,12 +47,6 @@ Route::prefix('settings')->namespace('User')->name('users.')->group(function() {
     Route::put('/myaccount', 'AccountController@update')->name('accounts.update');
 
     /**
-     * Profile
-     */
-    Route::get('/myprofile', 'ProfileController@edit')->name('profiles.edit');
-    Route::put('/myprofile', 'ProfileController@update')->name('profiles.update');
-
-    /**
      * Avatar
      */
     Route::get('/myavatar', 'AvatarController@edit')->name('avatars.edit');

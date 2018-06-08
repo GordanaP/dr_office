@@ -6,7 +6,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'name' => $name = $faker->unique()->firstName,
         'email' => strtolower($name).'@gmail.com',
-        'password' => bcrypt('123456'),
+        'password' => 123456,
         'remember_token' => str_random(10),
     ];
 });

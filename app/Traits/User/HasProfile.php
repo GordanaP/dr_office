@@ -35,4 +35,17 @@ trait HasProfile
     {
         $this->profile()->delete();
     }
+
+    public function createOrUpdateProfile($data)
+    {
+        $profile = $this->profile ?: new Profile;
+
+        $profile->name = $data['name'];
+        $profile->about = $data['about'];
+        $profile->location = $data['location'];
+
+        $this->profile()->save($profile);
+
+        return $profile;
+    }
 }

@@ -4,9 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
-use App\Profile;
 use App\User;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class ProfileController extends Controller
 {
@@ -39,39 +38,19 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
-    {
-        return view('users.profiles.edit')->with([
-            'user' => Auth::user()
-        ]);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\ProfileRequest  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(ProfileRequest $request, $userId = null)
+    public function update(ProfileRequest $request, $userId)
     {
-        if ($request->ajax()) {
+        $user = User::find($userId);
 
-            $user = User::find($userId);
+        $user->createOrUpdateProfile($request);
 
-            Profile::newOrUpdate($user, $request);
-            return message('The profile has been saved.');
-        }
-        else {
-            Profile::newOrUpdate(Auth::user(), $request);
-
-            return $this->updated();
-        }
+        return message('The profile has been saved.');
     }
 
     /**
@@ -80,26 +59,12 @@ class ProfileController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($userId = null)
+    public function destroy($userId)
     {
-        if (request()->ajax()) {
+        $user = User::find($userId);
 
-            $user = User::find($userId);
+        $user->deleteProfile();
 
-            $user->deleteProfile();
-            return message('The profile has been deleted.');
-        }
-    }
-
-    /**
-     * Get the response for the successfully updated profile.
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
-    protected function updated()
-    {
-        $response = message('Your profile has been saved.');
-
-        return back()->with($response);
+        return message('The profile has been deleted.');
     }
 }
