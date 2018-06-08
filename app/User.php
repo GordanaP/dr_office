@@ -3,8 +3,6 @@
 namespace App;
 
 use App\Observers\UserObserver;
-use App\Role;
-use App\Traits\User\HasAvatar;
 use App\Traits\User\HasProfile;
 use App\Traits\User\HasRoles;
 use App\Traits\User\HasSlug;
@@ -15,7 +13,6 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable,
-    HasAvatar,
     HasProfile,
     HasRoles,
     HasSlug,
@@ -81,18 +78,6 @@ class User extends Authenticatable
     {
         return $this->hasOne(ActivationToken::class);
     }
-
-    /**
-     * Find the user by the attribute.
-     *
-     * @param string $value
-     * @param  string $field
-     * @return App\Usser
-     */
-    // public static function findBy($value, $field='email')
-    // {
-    //     return static::where($field, $value)->firstOrFail();
-    // }
 
     public function setPasswordAttribute($value)
     {

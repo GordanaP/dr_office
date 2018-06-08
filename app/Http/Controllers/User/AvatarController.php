@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Avatar;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AvatarRequest;
-use App\User;
+use App\Profile;
 use Illuminate\Support\Facades\Auth;
 
 class AvatarController extends Controller
@@ -25,17 +25,17 @@ class AvatarController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function show($userId)
+    public function show($profileId)
     {
         if(request()->ajax()) {
 
-            $user = User::find($userId);
+            $profile = Profile::find($profileId);
 
             return response([
-                'filename' => optional($user->avatar)->filename
+                'filename' => optional($profile->avatar)->filename
             ]);
         }
     }
@@ -49,7 +49,7 @@ class AvatarController extends Controller
     public function edit()
     {
         return view('users.avatars.edit')->with([
-            'user' => Auth::user()
+            'profile' => optional(Auth::user()->profile)
         ]);
     }
 
@@ -60,18 +60,18 @@ class AvatarController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(AvatarRequest $request, $userId = null)
+    public function update(AvatarRequest $request, $profileId = null)
     {
         if($request->ajax()) {
 
-            $user = User::find($userId);
+            $profile = Profile::find($profileId);
 
-            Avatar::newOrUpdate($user, $request, public_path($this->avatarPath));
+            $profile->createOrUpdate($profile, $request, public_path($this->avatarPath));
 
             return message('The avatar has been saved.');
         }
 
-        Avatar::newOrUpdate(Auth::user(), $request, public_path($this->avatarPath));
+        optional(Auth::user()->profile)->createOrUpdate(Auth::user()->profile, $request, public_path($this->avatarPath));
 
         return $this->updated();
     }

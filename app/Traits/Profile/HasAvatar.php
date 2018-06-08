@@ -1,74 +1,21 @@
 <?php
 
-namespace App\Traits\User;
+namespace App\Traits\Profile;
 
 use App\Avatar;
 
 trait HasAvatar
 {
-    /**
-     * Get the avatar that belongs to the user.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function avatar()
+    public function createOrUpdate($profile, $data, $path)
     {
-        return $this->hasOne(Avatar::class);
-    }
-
-    /**
-     * Add the avatar.
-     *
-     * @param array $data
-     * @param string $path
-     */
-    public function addAvatar($user, $data, $path)
-    {
-        $this->changeAvatarPath($user, $data, $path);
-
-        $this->changeAvatar($user, $data);
-    }
-
-    /**
-     * Remove the avatar.
-     *
-     * @param string $path
-     */
-    public function removeAvatar($path)
-    {
-        $this->removeAvatarFromDestination($path);
-
-        $this->deleteAvatar();
-    }
-
-    /**
-     * Change the avatar path in the storage.
-     *
-     * @param  array $data
-     */
-    protected function changeAvatarPath($user, $data, $path)
-    {
-        $myArray = $data->all();
-
-        $file = $data['avatar'];
-        $fileName = setAvatarName($user->id, $file);
-
-        $this->removeAvatarFromDestination($path);
-        $file->move($path, $fileName);
-    }
-
-    /**
-     * Change the avatar in the database.
-     *
-     * @param  array $data
-     */
-    protected function changeAvatar($user, $data)
-    {
-        $avatar = $this->avatar ?: new Avatar;
-
-        $avatar->filename = setAvatarName($user->id, $data['avatar']);
-
-        $this->saveAvatar($avatar);
+        if ($data['avatar_options'] == 1)
+        {
+            $profile->addAvatar($profile, $data, $path);
+        }
+        else if($data['avatar_options'] == 2)
+        {
+            $profile->removeAvatar($path);
+        }
     }
 
     /**
@@ -82,6 +29,60 @@ trait HasAvatar
         $this->avatar ? unlink($path .'/' .$this->avatar->filename) : '';
     }
 
+    /**
+     * Add the avatar.
+     *
+     * @param array $data
+     * @param string $path
+     */
+    protected function addAvatar($profile, $data, $path)
+    {
+        $this->changeAvatarPath($profile, $data, $path);
+
+        $this->changeAvatar($profile, $data);
+    }
+
+    /**
+     * Remove the avatar.
+     *
+     * @param string $path
+     */
+    protected function removeAvatar($path)
+    {
+        $this->removeAvatarFromDestination($path);
+
+        $this->deleteAvatar();
+    }
+
+    /**
+     * Change the avatar path in the storage.
+     *
+     * @param  array $data
+     */
+    protected function changeAvatarPath($profile, $data, $path)
+    {
+        $myArray = $data->all();
+
+        $file = $data['avatar'];
+        $fileName = setAvatarName($profile->id, $file);
+
+        $this->removeAvatarFromDestination($path);
+        $file->move($path, $fileName);
+    }
+
+    /**
+     * Change the avatar in the database.
+     *
+     * @param  array $data
+     */
+    protected function changeAvatar($profile, $data)
+    {
+        $avatar = $this->avatar ?: new Avatar;
+
+        $avatar->filename = setAvatarName($profile->id, $data['avatar']);
+
+        $this->saveAvatar($avatar);
+    }
 
     /**
      * Save the avatar in the database.
@@ -98,7 +99,7 @@ trait HasAvatar
      * Remove the avatar from the database.
      *
      */
-    public function deleteAvatar()
+    protected function deleteAvatar()
     {
         optional($this->avatar)->delete();
     }

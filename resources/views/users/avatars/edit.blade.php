@@ -7,6 +7,7 @@
 @endsection
 
 @section('content')
+
     @component('components.user_card')
         @slot('header')
                 <i class="fa fa-user-circle mr-6"></i> My avatar

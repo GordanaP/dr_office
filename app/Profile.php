@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\Profile\HasAvatar;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    use HasAvatar;
+
     /**
      * Get the user that owns the profile.
      *
@@ -15,4 +18,15 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the avatar that belongs to the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function avatar()
+    {
+        return $this->hasOne(Avatar::class);
+    }
+
 }

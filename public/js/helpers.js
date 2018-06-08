@@ -383,17 +383,17 @@ $.fn.emptyModal = function(fields, checked_field, hidden_field) {
  */
  function clearForm(modal, checked_field, hidden_field)
  {
-    $(modal).find('form').trigger('reset').end()
+    $(modal)
+        .find('form').trigger('reset').end()
 
-    .find("select").val(null).trigger('change').end()
+        .find("select").val(null).trigger('change').end()
 
-    .find("input:checkbox, input:radio").prop("checked", false)
+        .find("input:checkbox, input:radio").prop("checked", false)
 
-
-    $(modal).find(checked_field).prop('checked', true)
+    $(modal)
+        .find(checked_field).prop('checked', true)
 
     hidden_field ? hidden_field.hide() : ''
-
  }
 
 /**

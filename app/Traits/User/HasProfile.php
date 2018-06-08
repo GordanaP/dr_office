@@ -31,9 +31,11 @@ trait HasProfile
      *
      * @return void
      */
-    public function deleteProfile()
+    public function removeProfile($path)
     {
-        $this->profile()->delete();
+        $this->profile->removeAvatarFromDestination($path);
+
+        $this->delete();
     }
 
     public function createOrUpdateProfile($data)

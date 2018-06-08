@@ -7,13 +7,3 @@
         </a>
     </li>
 </ul>
-
-<p class="side-list-label">My profile</p>
-
-<ul class="list-group side-list">
-    <li class="list-group-item side-list-group-item {{ set_active_link('myavatar', 2) }}">
-        <a href="{{ route('users.avatars.edit') }}" class="ml-6">
-            Change avatar
-        </a>
-    </li>
-</ul>

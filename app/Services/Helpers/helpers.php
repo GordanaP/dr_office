@@ -60,9 +60,9 @@ function selected($current, $selected)
  * @param \App\User $user
  * @return string
  */
-function setAvatar($user)
+function setAvatar($profile)
 {
-    $avatar = optional($user->avatar)->filename ?: 'default.jpg';
+    $avatar = optional($profile->avatar)->filename ?: 'default.jpg';
 
     return 'images/avatars/'.$avatar;
 }

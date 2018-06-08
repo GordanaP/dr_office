@@ -2,7 +2,7 @@
 
 namespace App\Services\Models;
 
-use App\Traits\User\HasAvatar;
+use App\Traits\Profile\HasAvatar;
 use App\Traits\User\HasSlug;
 use App\User;
 
@@ -29,7 +29,7 @@ class UserService
      */
     public function get($column='email', $order='asc')
     {
-        return User::with('roles:name', 'avatar')->orderBy($column, $order)->get();
+        return User::with('roles:name')->orderBy($column, $order)->get();
     }
 
 
@@ -121,7 +121,7 @@ class UserService
     {
         $user = User::find($userId);
 
-        $user->removeAvatarFromDestination($path);
+        $user->profile->removeAvatarFromDestination($path);
 
         $user->delete();
     }

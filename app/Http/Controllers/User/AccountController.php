@@ -14,8 +14,8 @@ use Auth;
 
 class AccountController extends Controller
 {
-
     protected $users;
+
     protected $roles;
 
     protected $avatarPath = 'images/avatars';
@@ -40,8 +40,8 @@ class AccountController extends Controller
      */
     public function index()
     {
-        if (request()->ajax()) {
-
+        if (request()->ajax())
+        {
             $users = $this->users->get();
 
             return [ 'data' => $users ];
@@ -68,11 +68,14 @@ class AccountController extends Controller
      */
     public function store(AccountRequest $request)
     {
-        $user = $this->users->createAccount($request);
+        if (request()->ajax())
+        {
+            $user = $this->users->createAccount($request);
 
-        event(new AccountCreatedByAdmin($user, $request->password));
+            event(new AccountCreatedByAdmin($user, $request->password));
 
-        return message("A new account has been created");
+            return message("A new account has been created");
+        }
     }
 
     /**
@@ -83,8 +86,8 @@ class AccountController extends Controller
      */
     public function show($userId)
     {
-        if(request()->ajax()) {
-
+        if(request()->ajax())
+        {
             $user = User::find($userId);
 
             $html = view('users.roles.partials._html', compact('user'))->render();
@@ -118,8 +121,8 @@ class AccountController extends Controller
      */
     public function update(AccountRequest $request, $userId = null)
     {
-        if ($request->ajax()) {
-
+        if ($request->ajax())
+        {
             $this->users->updateAccount($userId, $request);
 
             $user = User::find($userId);
@@ -144,8 +147,8 @@ class AccountController extends Controller
      */
     public function destroy($userId)
     {
-        if (request()->ajax()) {
-
+        if (request()->ajax())
+        {
             $this->users->deleteAccount($userId, $this->avatarPath);
 
             return message('The account has been deleted.');

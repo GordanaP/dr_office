@@ -5,10 +5,11 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\User;
-use Auth;
 
 class ProfileController extends Controller
 {
+    protected $avatarPath = 'images/avatars';
+
     /**
      * Create new controller instance.
      *
@@ -27,7 +28,7 @@ class ProfileController extends Controller
      */
     public function show($userId)
     {
-        if(request()->ajax()){
+        if(request()->ajax()) {
 
             $user = User::find($userId);
 
@@ -46,11 +47,14 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request, $userId)
     {
-        $user = User::find($userId);
+        if(request()->ajax()) {
 
-        $user->createOrUpdateProfile($request);
+            $user = User::find($userId);
 
-        return message('The profile has been saved.');
+            $user->createOrUpdateProfile($request);
+
+            return message('The profile has been saved.');
+        }
     }
 
     /**
@@ -61,10 +65,13 @@ class ProfileController extends Controller
      */
     public function destroy($userId)
     {
-        $user = User::find($userId);
+        if(request()->ajax()) {
 
-        $user->deleteProfile();
+            $user = User::find($userId);
 
-        return message('The profile has been deleted.');
+            $user->removeProfile($this->avatarPath);
+
+            return message('The profile has been deleted.');
+        }
     }
 }

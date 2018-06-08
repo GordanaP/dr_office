@@ -51,6 +51,7 @@ Route::prefix('settings')->namespace('User')->name('users.')->group(function() {
      */
     Route::get('/myavatar', 'AvatarController@edit')->name('avatars.edit');
     Route::put('/myavatar', 'AvatarController@update')->name('avatars.update');
+
 });
 
 /**
@@ -87,7 +88,7 @@ Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
      * Avatar
      */
     Route::resource('avatars', 'AvatarController', [
-        'parameters' => ['avatars' => 'userId'],
+        'parameters' => ['avatars' => 'profileId'],
         'only' => ['show', 'update']
     ]);
 });

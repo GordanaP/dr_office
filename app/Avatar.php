@@ -8,14 +8,9 @@ class Avatar extends Model
 {
     protected $fillable = ['filename'];
 
-    /**
-     * Get the user that owns the avatar.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+    public function profile()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Profile::class);
     }
 
     /**
@@ -26,15 +21,15 @@ class Avatar extends Model
      * @param  string $path
      *
      */
-    public static function newOrUpdate($user, $data, $path)
-    {
-        if ($data['avatar_options'] == 1)
-        {
-            $user->addAvatar($user, $data, $path);
-        }
-        else if($data['avatar_options'] == 2)
-        {
-            $user->removeAvatar($path);
-        }
-    }
+    // public static function newOrUpdate($user, $data, $path)
+    // {
+    //     if ($data['avatar_options'] == 1)
+    //     {
+    //         $user->addAvatar($user, $data, $path);
+    //     }
+    //     else if($data['avatar_options'] == 2)
+    //     {
+    //         $user->removeAvatar($path);
+    //     }
+    // }
 }

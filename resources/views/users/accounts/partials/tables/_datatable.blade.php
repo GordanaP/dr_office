@@ -20,17 +20,6 @@ var datatable = table.DataTable({
         },
         { data: 'email' },
         {
-            data: 'avatar',
-            render: function(data, type, row, meta) {
-
-                var filename = data ? data.filename : 'default.jpg'
-
-                return '<a href="#" data-user="' + row.id + '" data-name="' + row.name + '" id="editAvatar">' + setAvatar(filename, 'dt-avatar') + '</a>'
-            },
-            searchable: false,
-            orderable: false
-        },
-        {
             data: 'roles',
             render: function(data, type, row, meta) {
                 return getRoleNames(data).length > 0 ? getRoleNames(data) + ' <a href="#" data-user="' + row.id + '" data-name="' + row.name + '" id="editRoles">Revoke</a>' : '';

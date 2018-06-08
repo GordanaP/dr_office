@@ -11,7 +11,7 @@
 
         <!-- Show avatar -->
         <div class="col-lg-4 col-sm-4 mb-12">
-            <img src="{{ asset(setAvatar($user)) }}" alt="{{ $user->name . ' Avatar' }}" class="image img-responsive rounded-circle" style="width: 200px; height: 200px">
+            <img src="{{ asset(setAvatar($profile)) }}" alt="{{ $profile->name . ' Avatar' }}" class="image img-responsive rounded-circle" style="width: 200px; height: 200px">
         </div>
 
         <div class="col-lg-8 col-sm-8">
