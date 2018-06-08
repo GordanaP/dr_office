@@ -392,7 +392,7 @@ $.fn.emptyModal = function(fields, checked_field, hidden_field) {
 
     $(modal).find(checked_field).prop('checked', true)
 
-    _password ? _password.hide() : ''
+    hidden_field ? hidden_field.hide() : ''
 
  }
 

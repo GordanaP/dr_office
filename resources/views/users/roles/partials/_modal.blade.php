@@ -19,7 +19,7 @@
 
                     <!-- Name -->
                     <div class="form-group">
-                        <label for="name">Name  <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+                        <label for="name">Name <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
                         <input type="text" class="form-control name admin-modal-input" id="name" name="name" placeholder="Enter role name">
 
                         <span class="invalid-feedback name"></span>

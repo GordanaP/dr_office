@@ -6,18 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RevokeRolesRequest;
 use App\Http\Requests\RoleRequest;
 use App\Role;
+use App\Services\Models\RoleService;
 use App\User;
-use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    protected $roles;
+
     /**
      * Create new controller instance.
      *
      * @return  void
      */
-    public function __construct()
+    public function __construct(RoleService $roles)
     {
+        $this->roles = $roles;
+
         $this->middleware('auth');
     }
 
@@ -28,7 +32,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = $this->roles->get();
 
         return view('users.roles.index', compact('roles'));
     }
@@ -41,7 +45,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        Role::createNew($request);
+        $this->roles->createOrUpdate($request);
 
         return message("A new role has been created");
     }
@@ -52,7 +56,7 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function show(Role $role)
     {
         return response([
             'role' => $role
@@ -68,9 +72,9 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        $role->saveChanges($request);
+        $this->roles->createOrUpdate($request, $role->id);
 
-        return message("The role name has been updated");
+        return message("The role has been updated");
     }
 
     /**
@@ -81,7 +85,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
+        $this->roles->remove($role->id);
 
         return message("The role has been deleted");
     }
@@ -95,7 +99,7 @@ class RoleController extends Controller
      */
     public function revoke(RevokeRolesRequest $request, $userId)
     {
-        $user = User::findBy($userId, 'id');
+        $user = User::find($userId);
 
         $user->revokeRole($request->role_id);
 

@@ -13,11 +13,11 @@
 
             <div class="flex float-right">
                 <div>
-                    <button type="button" class="btn btn-danger btn-delete" id="editRole" value="{{ $role->slug }}">
+                    <button type="button" class="btn btn-danger btn-delete" id="editRole" value="{{ $role->id }}">
                         Edit
                     </button>
                 </div>
-                <button type="button" class="btn btn-danger btn-delete" id="deleteRole" value="{{ $role->slug }}">
+                <button type="button" class="btn btn-danger btn-delete" id="deleteRole" value="{{ $role->id }}">
                     <i class="fa fa-trash fs-18"></i>
                 </button>
             </div>

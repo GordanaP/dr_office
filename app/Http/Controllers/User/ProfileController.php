@@ -30,7 +30,7 @@ class ProfileController extends Controller
     {
         if(request()->ajax()){
 
-            $user = User::findBy($userId, 'id');
+            $user = User::find($userId);
 
             return [
                 'profile' => $user->profile ?? '',
@@ -62,7 +62,7 @@ class ProfileController extends Controller
     {
         if ($request->ajax()) {
 
-            $user = User::findBy($userId, 'id');
+            $user = User::find($userId);
 
             Profile::newOrUpdate($user, $request);
             return message('The profile has been saved.');
@@ -84,7 +84,7 @@ class ProfileController extends Controller
     {
         if (request()->ajax()) {
 
-            $user = User::findBy($userId, 'id');
+            $user = User::find($userId);
 
             $user->deleteProfile();
             return message('The profile has been deleted.');

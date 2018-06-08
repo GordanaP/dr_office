@@ -7,16 +7,16 @@ use App\Events\Auth\AccountUpdatedByAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AccountRequest;
 use App\Role;
+use App\Services\Models\RoleService;
 use App\Services\Models\UserService;
-use App\Traits\ModelFinder;
 use App\User;
 use Auth;
 
 class AccountController extends Controller
 {
-    use ModelFinder;
 
     protected $users;
+    protected $roles;
 
     protected $avatarPath = 'images/avatars';
 
@@ -25,9 +25,10 @@ class AccountController extends Controller
      *
      * @return  void
      */
-    public function __construct(UserService $users)
+    public function __construct(UserService $users, RoleService $roles)
     {
         $this->users = $users;
+        $this->roles = $roles;
 
         $this->middleware('auth');
     }
@@ -54,7 +55,7 @@ class AccountController extends Controller
      */
     public function accountsList()
     {
-        $roles = $this->getRoles();
+        $roles = $this->roles->get();
 
         return view('users.accounts.index', compact('roles'));
     }

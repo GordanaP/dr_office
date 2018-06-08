@@ -32,7 +32,7 @@ class AvatarController extends Controller
     {
         if(request()->ajax()) {
 
-            $user = User::findBy($userId, 'id');
+            $user = User::find($userId);
 
             return response([
                 'filename' => optional($user->avatar)->filename
@@ -64,7 +64,7 @@ class AvatarController extends Controller
     {
         if($request->ajax()) {
 
-            $user = User::findBy($userId, 'id');
+            $user = User::find($userId);
 
             Avatar::newOrUpdate($user, $request, public_path($this->avatarPath));
 

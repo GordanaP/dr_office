@@ -3,7 +3,7 @@ $(document).on("click", '#editRole', function() {
     roleModal.modal('show')
 
     var role = $(this).val()
-    var showRoleUrl = rolesIndexUrl + '/' + role + '/edit'
+    var showRoleUrl = rolesIndexUrl + '/' + role
 
     $('.modal-title i').addClass('fa-briefcase')
     $('.modal-title span').text('Edit role')

@@ -78,7 +78,7 @@ Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
      */
     Route::delete('/roles-revoke/{userId}', 'RoleController@revoke')->name('roles.revoke');
     Route::resource('/roles', 'RoleController', [
-        'only' => ['index', 'store', 'edit', 'update', 'destroy']
+        'only' => ['index', 'store', 'show', 'update', 'destroy']
     ]);
 
     /**
