@@ -24,8 +24,6 @@
     @include('users.accounts.partials.modals._create')
     @include('users.accounts.partials.modals._edit')
     @include('users.accounts.partials.modals._revokeRoles')
-    @include('users.profiles.partials.modals._edit')
-    @include('users.avatars.partials.modals._edit')
 
 @endsection
 
@@ -79,22 +77,6 @@
 
         revokeRolesModal.emptyModal(revokeFields)
 
-        // Profile
-        var profileModal = $('#profileModal')
-        var profileForm = $('#adminProfileForm')
-        var profileFields = ['name', 'about', 'location']
-
-        profileModal.setAutofocus('profileName')
-        profileModal.emptyModal(profileFields)
-
-        // Avatar
-        var avatarModal = $('#avatarModal')
-        var avatarForm = $('#userAvatarForm')
-        var avatarFields = ['avatar_options', 'avatar']
-
-        avatarModal.setAutofocus('avatar_options')
-        avatarModal.emptyModal(avatarFields)
-
         // Datatable
         @include('users.accounts.partials.tables._datatable')
 
@@ -118,21 +100,6 @@
 
         // Revoke user role(s)
         @include('users.accounts.js._revokeRoles')
-
-        // Edit profile
-        @include('users.profiles.js._edit')
-
-        // Save profile
-        @include('users.profiles.js._save')
-
-        // Delete profile
-        @include('users.profiles.js._delete')
-
-        // Edit Avatar
-        @include('users.avatars.js._edit')
-
-        // Save Avatar
-        @include('users.avatars.js._save')
 
     </script>
 

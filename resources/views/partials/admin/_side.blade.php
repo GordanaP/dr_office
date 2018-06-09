@@ -6,12 +6,12 @@
     <div class="sidebar-sticky pt-0">
         <div id="adminDetails" class="flex">
             <div class="flex-1" id="displayUserAvatar">
-                <img src="{{ asset(setAvatar(Auth::user())) }}" alt="" class="image img-responsive rounded-circle" style="width: 50px; height: 50px;">
+                <img src="{{ asset(setAvatar(Auth::user()->profile)) }}" alt="" class="image img-responsive rounded-circle" style="width: 50px; height: 50px;">
             </div>
 
             <div class="flex-2">
                 <p class="mb-12" id="displayUserName">
-                    <b class="mr-18">{{ Auth::user()->name }}</b>
+                    <b class="mr-18">{{ (Auth::user()->profile)->name ?: Auth::user()->name }}</b>
                 </p>
 
                 <p class="mb-12 fs-11">

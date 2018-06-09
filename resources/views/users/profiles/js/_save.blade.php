@@ -14,8 +14,10 @@ $(document).on('click', '#saveProfile', function() {
         type: "PUT",
         data: data,
         success: function(response) {
-            $('#myProfile').load(location.href + ' #myProfile')
-            $('#myProfileName').load(location.href + ' #myProfileName')
+
+            $('#userProfile').load(location.href + ' #userProfile')
+            $('#displayUserName').load(location.href + ' #displayUserName')
+
             successResponse(profileModal, response.message)
         },
         error: function(response) {

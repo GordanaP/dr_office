@@ -1,7 +1,5 @@
 <?php
 
-use App\User;
-
 /**
  * Create the response message.
  *
@@ -30,19 +28,6 @@ function set_active_link($value, $segment=1)
 }
 
 /**
- * Set the class color.
- *
- * @param [type] $param  [description]
- * @param [type] $value  [description]
- * @param string $class1 [description]
- * @param string $class2 [description]
- */
-// function set_class($param, $value, $class1=' green', $class2=' red')
-// {
-//     return $param == $value ? $class1 : $class2;
-// }
-
-/**
  * Indicate a selected option.
  *
  * @param  integer $current
@@ -63,10 +48,15 @@ function selected($current, $selected)
 function setAvatar($profile)
 {
     $avatar = optional($profile->avatar)->filename ?: 'default.jpg';
-
     return 'images/avatars/'.$avatar;
 }
 
+/**
+ * Set avatar name.
+ *
+ * @param int $userId
+ * @param Fil $file
+ */
 function setAvatarName($userId, $file)
 {
     return $userId.'-'.$file->getClientOriginalName();

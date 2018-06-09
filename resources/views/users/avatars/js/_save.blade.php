@@ -1,7 +1,7 @@
 $(document).on('click', '#saveAvatar', function() {
 
-    var user = $(this).val()
-    var updateAvatarUrl = '/admin/avatars/' + user
+    var profile = $(this).val()
+    var updateAvatarUrl = '/admin/avatars/' + profile
 
     var formData = new FormData(avatarForm[0])
     formData.append('_method', 'PUT');
@@ -14,12 +14,8 @@ $(document).on('click', '#saveAvatar', function() {
         processData: false,
         success: function(response)
         {
-            if(datatable) {
-                datatable.ajax.reload()
-            }
-
             $('#displayUserAvatar').load(location.href + ' #displayUserAvatar')
-            $('#myAvatar').load(location.href + ' #myAvatar')
+            $('#profileAvatar').load(location.href + ' #profileAvatar')
 
             successResponse(avatarModal, response.message)
         },

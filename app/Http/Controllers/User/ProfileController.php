@@ -38,6 +38,13 @@ class ProfileController extends Controller
         }
     }
 
+    public function edit($userId)
+    {
+        $user = User::find($userId);
+
+        return view('users.profiles.edit', compact('user'));
+    }
+
     /**
      * Update the specified resource in storage.
      *

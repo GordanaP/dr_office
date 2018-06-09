@@ -1,13 +1,13 @@
-$(document).on('click', '#editAvatar', function(){
+$(document).on('click', '#changeAvatar', function(){
 
     avatarModal.modal('show')
 
-    var user = $(this).attr('data-user')
+    var profile = $(this).attr('data-profile')
     var username = $(this).attr('data-name')
-    var editAvatarUrl = '/admin/avatars/' + user
+    var editAvatarUrl = '/admin/avatars/' + profile
 
     $('.modal-title span').text(username)
-    $('#saveAvatar').val(user)
+    $('#saveAvatar').val(profile)
 
     $.ajax({
         url: editAvatarUrl,

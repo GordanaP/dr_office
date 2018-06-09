@@ -45,13 +45,6 @@ Route::prefix('settings')->namespace('User')->name('users.')->group(function() {
      */
     Route::get('/myaccount', 'AccountController@edit')->name('accounts.edit');
     Route::put('/myaccount', 'AccountController@update')->name('accounts.update');
-
-    /**
-     * Avatar
-     */
-    Route::get('/myavatar', 'AvatarController@edit')->name('avatars.edit');
-    Route::put('/myavatar', 'AvatarController@update')->name('avatars.update');
-
 });
 
 /**
@@ -81,7 +74,7 @@ Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
      */
     Route::resource('/profiles', 'ProfileController', [
         'parameters' => ['profiles' => 'userId'],
-        'only' => ['show', 'update', 'destroy']
+        'only' => ['edit','show', 'update', 'destroy']
     ]);
 
     /**
