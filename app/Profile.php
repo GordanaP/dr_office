@@ -9,6 +9,8 @@ class Profile extends Model
 {
     use HasAvatar;
 
+    // protected $with = ['avatar'];
+
     /**
      * Get the user that owns the profile.
      *

@@ -42,7 +42,7 @@ trait HasProfile
     {
         $profile = $this->profile ?: new Profile;
 
-        $profile->name = $data['name'];
+        $profile->name = $data['first_name'].' '.$data['last_name'];
         $profile->about = $data['about'];
         $profile->location = $data['location'];
 

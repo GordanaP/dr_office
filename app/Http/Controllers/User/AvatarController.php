@@ -34,7 +34,7 @@ class AvatarController extends Controller
             $profile = Profile::find($profileId);
 
             return response([
-                'filename' => optional($profile->avatar)->filename
+                'profile' => $profile->load('avatar') ?: ''
             ]);
         }
     }

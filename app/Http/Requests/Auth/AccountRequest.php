@@ -31,7 +31,9 @@ class AccountRequest extends FormRequest
             case 'POST':
                 return [
                     'role_id' => 'exists:roles,id',
-                    'name' => 'required|string|alpha_num|max:30',
+                    'title' => 'required|string|max:30',
+                    'first_name' => 'required|string|alpha_num|max:30',
+                    'last_name' => 'required|string|alpha_num|max:30',
                     'email' => 'required|string|email|max:100|unique:users,email',
                     'password' => [
                         'required', 'string', 'min:6',
@@ -44,7 +46,9 @@ class AccountRequest extends FormRequest
             case 'PATCH':
                 return [
                     'role_id' => 'exists:roles,id',
-                    'name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
+                    'title' => 'required|string|max:30',
+                    'first_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
+                    'last_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
                     'email' => 'required|string|email|max:100|unique:users,email,'.$userId,
                     'password' => [
                         'nullable',

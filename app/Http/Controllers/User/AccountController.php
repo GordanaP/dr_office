@@ -93,7 +93,7 @@ class AccountController extends Controller
             $html = view('users.roles.partials._html', compact('user'))->render();
 
             return response([
-                'user' => $user->load('roles'),
+                'user' => $user->load('roles', 'profile'),
                 'html' => $html
             ]);
         }

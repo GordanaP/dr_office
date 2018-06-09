@@ -5,7 +5,9 @@ $(document).on('click', '#storeAccount', function() {
 
     var data = {
         role_id: $("#role_id").val(),
-        name : $("#name").val(),
+        title : $("#title").val(),
+        first_name : $("#first_name").val(),
+        last_name : $("#last_name").val(),
         email : $("#email").val(),
         password: password,
     }

@@ -8,10 +8,6 @@
     <div class="pb-2 col-md-12">
         <h2 class="admin-title-no-button">
             <span id="myProfileName">{{ optional($user->profile)->name ?: $user->name }}</span>
-            @forelse ($user->roles as $role)
-                <span class="muted"><small>{{ $role->name }}</small></span>
-            @empty
-            @endforelse
         </h2>
         <hr>
     </div>

@@ -14,7 +14,7 @@ $(document).on('click', '#changeAvatar', function(){
         type: "GET",
         success: function(response)
         {
-            var filename = response.filename ? response.filename : 'default.jpg'
+            var filename = response.profile.avatar ? response.profile.avatar.filename : 'default.jpg'
 
             avatarModal.find('#showAvatar').html(setAvatar(filename, 'image img-responsive rounded-circle'))
         }

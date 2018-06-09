@@ -8,7 +8,9 @@ $(document).on('click', '#updateAccount', function() {
 
     var data = {
         role_id: $("#_role_id").val(),
-        name : $("#_name").val(),
+        title : $("#_title").val(),
+        first_name : $("#_first_name").val(),
+        last_name : $("#_last_name").val(),
         email : $("#_email").val(),
         create_password: checked,
         password: password,

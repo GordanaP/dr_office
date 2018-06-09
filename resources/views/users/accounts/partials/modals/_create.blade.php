@@ -12,7 +12,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="required-fields mb-18">
+                    <p class="required-fields mb-2">
                         Fields marked with <sup><i class="fa fa-asterisk fa-form"></i></sup> are required.
                     </p>
 
@@ -30,13 +30,31 @@
                         <span class="invalid-feedback role_id"></span>
                     </div>
 
-                    <!-- Name -->
+                    <!-- Title -->
                     <div class="form-group">
-                        <label for="name">Name <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+                        <label for="title">Title <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
 
-                        <input type="text" class="form-control name admin-modal-input" id="name" name="name" placeholder="Give name to the user" />
+                        <input type="text" class="form-control admin-modal-input title" id="title" name="title" placeholder="Enter title" />
 
-                        <span class="invalid-feedback name"></span>
+                        <span class="invalid-feedback title"></span>
+                    </div>
+
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label for="first_name">First name <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+
+                        <input type="text" class="form-control admin-modal-input  first_name" id="first_name" name="first_name" placeholder="Enter first name" />
+
+                        <span class="invalid-feedback first_name"></span>
+                    </div>
+
+                    <!-- Last name -->
+                    <div class="form-group">
+                        <label for="last_name">Last name <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+
+                        <input type="text" class="form-control admin-modal-input last_name" id="last_name" name="last_name" placeholder="Enter last name" />
+
+                        <span class="invalid-feedback last_name"></span>
                     </div>
 
                     <!-- Email -->
@@ -49,7 +67,7 @@
                     </div>
 
                     <!-- Password-->
-                    <div class="form-group mb-0">
+                    <div class="form-group mb-1">
                         <label for="create_password" class="mb-0">Password <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
 
                         <input type="password" class="form-control mt-8 password admin-modal-input" id="password" name="password" placeholder="Give password to the user" />
@@ -57,13 +75,11 @@
                         <span class="invalid-feedback password"></span>
                     </div>
 
-                    <div class="form-group mt-12">
-                        <div class="form-check">
-                            <input class="form-check-input admin-modal-input" type="checkbox" name="create-password" id="auto_password" value="auto"  checked />
-                            <label class="form-check-label" for="auto_password">
-                                Auto generate password
-                            </label>
-                        </div>
+                    <div class="form-check">
+                        <input class="form-check-input admin-modal-input" type="checkbox" name="create-password" id="auto_password" value="auto"  checked />
+                        <label class="form-check-label" for="auto_password">
+                            Auto generate password
+                        </label>
                     </div>
                 </div>
 

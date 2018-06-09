@@ -55,13 +55,15 @@ class UserService
     {
         $user = new User;
 
-        $user->name = $data['name'];
+        $user->name = strtolower(substr($data['first_name'], 0, 1)).strtolower($data['last_name']);
         $user->email = $data['email'];
         $user->password = $data['password']; //attribute set
 
         $user->save();
 
         $user->assignRole($data['role_id']);
+
+        $user->createOrUpdateProfile($data);
 
         return $user;
     }
@@ -91,12 +93,15 @@ class UserService
             $user->password = $data['password'];
         }
 
+        $user->save();
+
         if($data['role_id'])
         {
             $user->assignRole($data['role_id']);
         }
 
-        $user->save();
+        $user->createOrUpdateProfile($data);
+
     }
 
     /**

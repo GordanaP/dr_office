@@ -32,18 +32,36 @@
                     </div>
                     @endif
 
-                    <!-- Name -->
+                    <!-- Title -->
                     <div class="form-group">
-                        <label for="name">Name <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+                        <label for="title">Title <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
 
-                        <input type="text" class="form-control name admin-modal-input" id="_name" name="name" placeholder="Enter your name" />
+                        <input type="text" class="form-control admin-modal-input title" id="_title" name="title" placeholder="Enter title" />
 
-                        <span class="invalid-feedback name"></span>
+                        <span class="invalid-feedback title"></span>
+                    </div>
+
+                    <!-- First name -->
+                    <div class="form-group">
+                        <label for="_first_name">First name <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+
+                        <input type="text" class="form-control admin-modal-input first_name" id="_first_name" name="first_name" placeholder="Enter first name" />
+
+                        <span class="invalid-feedback first_name"></span>
+                    </div>
+
+                    <!-- Last name -->
+                    <div class="form-group">
+                        <label for="_last_name">Last name <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+
+                        <input type="text" class="form-control admin-modal-input last_name" id="_last_name" name="last_name" placeholder="Enter last name" />
+
+                        <span class="invalid-feedback last_name"></span>
                     </div>
 
                     <!-- Email -->
                     <div class="form-group">
-                        <label for="email">E-Mail Address <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+                        <label for="_email">E-Mail Address <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
 
                         <input type="text" class="form-control email admin-modal-input"  id="_email" name="email" placeholder="example@domain.com" />
 
@@ -52,7 +70,7 @@
 
                     <!-- Password-->
                     <div class="form-group mb-0">
-                        <label for="create_password" class="mb-0">Password <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
+                        <label for="_password" class="mb-0">Password <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
 
                         <input type="password" class="form-control mt-8 password admin-modal-input" id="_password" name="password" placeholder="Give password to the user" />
 

@@ -46,7 +46,7 @@
 
         // ACCOUNT
         var adminAccountsUrl = "{{ route('admin.accounts.index') }}"
-        var accountFields = ['role_id', 'name', 'email', 'password']
+        var accountFields = ['role_id', 'title', 'first_name', 'last_name', 'email', 'password']
 
         // Create account
         var createAccountModal = $('#createAccountModal')
