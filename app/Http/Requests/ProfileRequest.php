@@ -25,15 +25,9 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'required_without_all:about,location',
-                'nullable',
-                'string',
-                new AlphaNumSpace(),
-                'max:30'
-            ],
-            'about' => 'required_without_all:name,location|nullable|string|max:150',
-            'location' => 'required_without_all:name,about|nullable|string|max:50',
+            'title' => 'required|max:30',
+            'first_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
+            'last_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
         ];
     }
 

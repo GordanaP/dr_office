@@ -14,8 +14,8 @@ $(document).on('click', '#saveAvatar', function() {
         processData: false,
         success: function(response)
         {
-            $('#displayUserAvatar').load(location.href + ' #displayUserAvatar')
-            $('#profileAvatar').load(location.href + ' #profileAvatar')
+            $('#userProfileAvatar').load(location.href + ' #userProfileAvatar')
+            $('#authProfileAvatar').load(location.href + ' #authProfileAvatar')
 
             successResponse(avatarModal, response.message)
         },

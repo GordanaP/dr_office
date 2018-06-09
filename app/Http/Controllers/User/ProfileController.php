@@ -42,7 +42,9 @@ class ProfileController extends Controller
     {
         $user = User::find($userId);
 
-        return view('users.profiles.edit', compact('user'));
+        return view('users.profiles.edit')->with([
+            'user' => $user->load('profile', 'profile.avatar')
+        ]);
     }
 
     /**

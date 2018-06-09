@@ -1,4 +1,4 @@
-<div id="profileAvatar" class="text-center mb-12">
+<div id="userProfileAvatar" class="text-center mb-12">
     <img src="{{ asset(setAvatar($user->profile)) }}" alt="" class="image img-responsive rounded-circle">
 </div>
 

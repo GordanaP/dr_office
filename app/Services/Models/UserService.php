@@ -3,12 +3,11 @@
 namespace App\Services\Models;
 
 use App\Traits\Profile\HasAvatar;
-use App\Traits\User\HasSlug;
 use App\User;
 
 class UserService
 {
-    use HasSlug, HasAvatar;
+    use HasAvatar;
 
     protected $user;
 
@@ -55,7 +54,7 @@ class UserService
     {
         $user = new User;
 
-        $user->name = strtolower(substr($data['first_name'], 0, 1)).strtolower($data['last_name']);
+        $user->name = setUsername($data['first_name'], $data['last_name']);
         $user->email = $data['email'];
         $user->password = $data['password']; //attribute set
 
@@ -80,12 +79,9 @@ class UserService
 
         $user->email = $data['email'];
 
-        if ($data['name'])
+        if ($data['first_name'] && $data['last_name'])
         {
-            $slug = $this->getSlug($user, $data['name']);
-
-            $user->name = $data['name'];
-            $user->slug = $slug;
+            $user->name = setUsername($data['first_name'], $data['last_name']);
         }
 
         if($data['password'])
@@ -101,19 +97,6 @@ class UserService
         }
 
         $user->createOrUpdateProfile($data);
-
-    }
-
-    /**
-     * Create the user name slug during account update.
-     *
-     * @param  \App\User $user
-     * @param  string $name
-     * @return string
-     */
-    protected function getSlug($user, $name)
-    {
-        return strtolower($name) === strtolower($user->name) ?  $user->slug : User::uniqueNameSlug($name);
     }
 
     /**

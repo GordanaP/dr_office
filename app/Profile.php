@@ -2,14 +2,27 @@
 
 namespace App;
 
+use App\Observers\ProfileObserver;
 use App\Traits\Profile\HasAvatar;
+use App\Traits\Profile\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    use HasAvatar;
+    use HasAvatar, HasSlug;
 
-    // protected $with = ['avatar'];
+    /**
+     * Bootstrap the application Profile service.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::observe(ProfileObserver::class);
+    }
+
 
     /**
      * Get the user that owns the profile.
@@ -30,5 +43,4 @@ class Profile extends Model
     {
         return $this->hasOne(Avatar::class);
     }
-
 }

@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">
                     <i class="fa"></i>
-                    <span></span>
+                    <span>Edit profile</span>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -16,36 +16,37 @@
                 <div class="modal-body">
                     <p class="required-fields mb-18">Please fill in at least one of fields below.</p>
 
-                    <!-- Name -->
+                    <!-- Title ame -->
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input class="form-control name admin-modal-input" type="text" name="name" id="profileName" placeholder="Enter profile name">
+                        <label for="title">Title</label>
+                        <input class="form-control title admin-modal-input" type="text" name="title" id="title" placeholder="Enter title">
 
-                        <span class="invalid-feedback name"></span>
+                        <span class="invalid-feedback title"></span>
                     </div>
 
-                    <!-- About -->
+                    <!-- First name -->
                     <div class="form-group">
-                        <label for="about">About</label>
-                        <textarea class="form-control about admin-modal-input" name="about" id="about" rows="5" placeholder="Introduce the user in less than 150 characters"></textarea>
+                        <label for="first_name">Name</label>
+                        <input class="form-control first_name admin-modal-input" type="text" name="first_name" id="first_name" placeholder="Enter first name">
 
-                        <span class="invalid-feedback about"></span>
+                        <span class="invalid-feedback first_name"></span>
                     </div>
 
-                    <!-- Location -->
+                    <!-- First name -->
                     <div class="form-group">
-                        <label for="location">Location</label>
-                        <input class="form-control location admin-modal-input" type="text" name="location" id="location" placeholder="Enter location">
+                        <label for="last_name">Name</label>
+                        <input class="form-control last_name admin-modal-input" type="text" name="last_name" id="last_name" placeholder="Enter first name">
 
-                        <span class="invalid-feedback location"></span>
+                        <span class="invalid-feedback last_name"></span>
                     </div>
                 </div>
-                <div class="modal-footer flex justify-between">
-                    <button type="button" class="btn btn-danger btn-profile admin-modal-btn-delete" id="deleteProfile">Delete</button>
-                    <div>
+
+                <div class="modal-footer">
+                    {{-- <button type="button" class="btn btn-danger btn-profile admin-modal-btn-delete" id="deleteProfile">Delete</button>
+                    <div> --}}
                         <button type="button" class="btn btn-primary btn-profile admin-modal-btn" id="saveProfile">Save changes</button>
                         <button type="button" class="btn btn-secondary admin-modal-btn-close" data-dismiss="modal">Close</button>
-                    </div>
+                    {{-- </div> --}}
                 </div>
             </form>
         </div>

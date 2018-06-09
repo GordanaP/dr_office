@@ -5,7 +5,6 @@ namespace App;
 use App\Observers\UserObserver;
 use App\Traits\User\HasProfile;
 use App\Traits\User\HasRoles;
-use App\Traits\User\HasSlug;
 use App\Traits\User\VerifiesEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -15,7 +14,6 @@ class User extends Authenticatable
     use Notifiable,
     HasProfile,
     HasRoles,
-    HasSlug,
     VerifiesEmail;
 
     /**

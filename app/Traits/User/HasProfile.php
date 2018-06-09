@@ -42,12 +42,33 @@ trait HasProfile
     {
         $profile = $this->profile ?: new Profile;
 
-        $profile->name = $data['first_name'].' '.$data['last_name'];
-        $profile->about = $data['about'];
-        $profile->location = $data['location'];
+        $slug = $this->getSlug($profile, $data['first_name'], $data['last_name']);
+
+        $profile->title = $data['title'];
+        $profile->first_name = $data['first_name'];
+        $profile->last_name = $data['last_name'];
+        $profile->slug = $slug;
 
         $this->profile()->save($profile);
 
         return $profile;
     }
+
+    /**
+     * Create the user name slug during account update.
+     *
+     * @param  \App\User $user
+     * @param  string $name
+     * @return string
+     */
+    protected function getSlug($profile, $first_name, $last_name)
+    {
+        $currentName = setFullName($profile->first_name, $profile->last_name);
+        $newName = setFullName($first_name, $last_name);
+
+        $slug = $newName == $currentName ?  $profile->slug : Profile::uniqueNameSlug($newName);
+
+        return $slug;
+    }
+
 }

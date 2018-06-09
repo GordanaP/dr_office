@@ -12,12 +12,15 @@ $(document).on('click', '#editAccount', function() {
         url: editAccountUrl,
         type: "GET",
         success: function(response) {
+
             var user = response.user
 
             var roleIds = getUserRoles(user.roles)
 
             $("#_role_id").val(roleIds).trigger("change");
-            $('#_first_name').val(user.profile.name)
+            $("#_title").val(user.profile.title);
+            $('#_first_name').val(user.profile.first_name)
+            $('#_last_name').val(user.profile.last_name)
             $('#_email').val(user.email)
         }
     })

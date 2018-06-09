@@ -1,13 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', '| Admin | Profiles| @'.$user->name)
+@section('title', '| Admin | Profiles | Edit')
 
 @section('content')
+
 
     <!-- Page title -->
     <div class="pb-2 col-md-12">
         <h2 class="admin-title-no-button">
-            <span id="myProfileName">{{ optional($user->profile)->name ?: $user->name }}</span>
+            <span id="userProfileName">
+                {{ setFullName($user->profile->first_name, $user->profile->last_name) }}
+            </span>
         </h2>
         <hr>
     </div>

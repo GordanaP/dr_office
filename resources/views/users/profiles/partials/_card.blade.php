@@ -4,24 +4,13 @@
         <div id="userProfile">
 
             <p class="card-text mb-8">
-                <b>Profile name:</b> {{ optional($user->profile)->name ?: 'N/A' }}
-            </p>
-            <p class="card-text mb-8">
-                <b>About:</b> {{ optional($user->profile)->about  ?: 'N/A' }}
-            </p>
-            <p class="card-text">
-                <b>Location:</b> {{ optional($user->profile)->location  ?: 'N/A' }}
+                <b>Profile name:</b> {{ setFullName($user->profile->first_name, $user->profile->last_name) ?: $user->name }}
             </p>
 
             <button type="button" class="btn btn-warning btn-link" id="editProfile"  data-name="{{ $user->name }}" value="{{$user->id }}">
-                {{ $user->hasProfile() ? 'Edit' : 'Create' }}
+                {{ 'Edit' }}
             </button>
 
-            @if ($user->hasProfile())
-                <button type="button" class="btn btn-danger btn-link admin-modal-btn-delete" value="{{$user->id }}">
-                    Delete
-                </button>
-            @endif
         </div>
     </div>
 </div>

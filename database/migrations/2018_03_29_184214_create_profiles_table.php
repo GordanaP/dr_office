@@ -19,9 +19,10 @@ class CreateProfilesTable extends Migration
             $table->unsignedInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('name')->nullable();
-            $table->string('about')->nullable();
-            $table->string('location')->nullable();
+            $table->string('slug')->unique();
+            $table->string('title', 30);
+            $table->string('first_name', 30);
+            $table->string('last_name', 30);
             $table->timestamps();
         });
     }

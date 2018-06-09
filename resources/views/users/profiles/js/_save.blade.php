@@ -4,9 +4,9 @@ $(document).on('click', '#saveProfile', function() {
     var updateProfileUrl = '/admin/profiles/' + user
 
     var data = {
-        name : $("#profileName").val(),
-        about : $("#about").val(),
-        location : $("#location").val(),
+        title : $("#title").val(),
+        first_name : $("#first_name").val(),
+        last_name : $("#last_name").val(),
     }
 
     $.ajax({
@@ -15,8 +15,10 @@ $(document).on('click', '#saveProfile', function() {
         data: data,
         success: function(response) {
 
+            $('#userProfileName').load(location.href + ' #userProfileName')
             $('#userProfile').load(location.href + ' #userProfile')
-            $('#displayUserName').load(location.href + ' #displayUserName')
+
+            $('#authProfileName').load(location.href + ' #authProfileName')
 
             successResponse(profileModal, response.message)
         },

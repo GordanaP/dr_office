@@ -5,13 +5,13 @@
 
     <div class="sidebar-sticky pt-0">
         <div id="adminDetails" class="flex">
-            <div class="flex-1" id="displayUserAvatar">
+            <div class="flex-1" id="authProfileAvatar">
                 <img src="{{ asset(setAvatar(Auth::user()->profile)) }}" alt="" class="image img-responsive rounded-circle" style="width: 50px; height: 50px;">
             </div>
 
             <div class="flex-2">
-                <p class="mb-12" id="displayUserName">
-                    <b class="mr-18">{{ (Auth::user()->profile)->name ?: Auth::user()->name }}</b>
+                <p class="mb-12" id="authProfileName">
+                    <b class="mr-18">{{ setFullName($user->profile->first_name, $user->profile->last_name) }}</b>
                 </p>
 
                 <p class="mb-12 fs-11">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits\User;
+namespace App\Traits\Profile;
 
 trait HasSlug
 {
@@ -16,7 +16,6 @@ trait HasSlug
 
         if (static::nameSlugExists($slug))
         {
-
             $pieces = explode('-', static::nameSlugLatest($slug));
 
             $number = intval(end($pieces));
@@ -50,5 +49,4 @@ trait HasSlug
                 ->pluck('slug')
                 ->first();
     }
-
 }
