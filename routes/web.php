@@ -1,10 +1,8 @@
 <?php
 
-Route::get('/test', function(){
-    return view('test')->with([
-        'roles' => \App\Role::all()
-    ]);
-});
+Route::resource('tests', 'TestController', [
+    'parameters' => ['tests' => 'user'],
+]);
 
 /**
  * Auth
@@ -39,7 +37,6 @@ Route::resource('accounts/token','Auth\ActivationController', [
  * User
  */
 Route::prefix('settings')->namespace('User')->name('users.')->group(function() {
-
     /**
      * Account
      */
@@ -57,7 +54,7 @@ Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
      */
     Route::get('/accounts/list', 'AccountController@accountsList')->name('accounts.list');
     Route::resource('/accounts', 'AccountController', [
-        'parameters' => ['accounts' => 'userId'],
+        'parameters' => ['accounts' => 'user'],
         'only' => ['index','store', 'show', 'update', 'destroy']
     ]);
 
@@ -73,15 +70,15 @@ Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
      * Profile
      */
     Route::resource('/profiles', 'ProfileController', [
-        'parameters' => ['profiles' => 'userId'],
-        'only' => ['edit','show', 'update', 'destroy']
+        'parameters' => ['profiles' => 'user'],
+        'only' => ['show', 'edit', 'update']
     ]);
 
     /**
      * Avatar
      */
     Route::resource('avatars', 'AvatarController', [
-        'parameters' => ['avatars' => 'profileId'],
+        'parameters' => ['avatars' => 'profile'],
         'only' => ['show', 'update']
     ]);
 });

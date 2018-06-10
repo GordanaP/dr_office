@@ -27,11 +27,9 @@ class AvatarController extends Controller
      * @param  int  $profileId
      * @return \Illuminate\Http\Response
      */
-    public function show($profileId)
+    public function show(Profile $profile)
     {
         if(request()->ajax()) {
-
-            $profile = Profile::find($profileId);
 
             return response([
                 'profile' => $profile->load('avatar') ?: ''
@@ -46,11 +44,9 @@ class AvatarController extends Controller
      * @param  int  $profileId
      * @return \Illuminate\Http\Response
      */
-    public function update(AvatarRequest $request, $profileId)
+    public function update(AvatarRequest $request, Profile $profile)
     {
         if($request->ajax()) {
-
-            $profile = Profile::find($profileId);
 
             $profile->createOrUpdate($profile, $request, public_path($this->avatarPath));
 

@@ -2,6 +2,6 @@
     <img src="{{ asset(setAvatar($user->profile)) }}" alt="" class="image img-responsive rounded-circle">
 </div>
 
-<a href="#" id="changeAvatar"  data-name="{{ $user->name }}" data-profile="{{ optional($user->profile)->id }}">
+<a href="#" id="changeAvatar"  data-name="{{ $user->name }}" data-profile="{{ $user->profile->slug }}">
     Change
 </a>

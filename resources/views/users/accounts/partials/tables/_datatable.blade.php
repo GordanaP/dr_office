@@ -49,7 +49,7 @@ var datatable = table.DataTable({
             visible: false
         }
     ],
-    "order": [2, 'asc'],
+    "order": [1, 'asc'],
     responsive: true,
     columnDefs: [
         { responsivePriority: 1, targets: 0 },

@@ -1,18 +1,18 @@
-<form action="{{ route('users.accounts.update') }}" method="POST" id="userAccountForm">
+<form action="{{ route('users.accounts.update') }}" method="POST">
 
     <p class="required-fields mb-18">
         Fields marked with <sup><i class="fa fa-asterisk fa-form"></i></sup> are required.
     </p>
 
-    @method('PUT')
     @csrf
+    @method('PUT')
 
     <!-- Email -->
     <div class="form-group row">
         <label for="email" class="col-md-4 col-form-label text-md-right"><sup><i class="fa fa-asterisk fa-form red"></i></sup> E-Mail Address</label>
 
         <div class="col-md-6">
-            <input type="text" class="email form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"  id="email" name="email" placeholder="example@domain.com" value="{{ old('email') ?: $user->email }}" />
+            <input type="text" class="email form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" placeholder="example@domain.com" value="{{ old('email') ?: $user->email }}" />
 
             @if ($errors->has('email'))
                 <span class="invalid-feedback email">
@@ -27,7 +27,7 @@
         <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
         <div class="col-md-6">
-            <input type="password" class="password form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"  id="password" name="password" placeholder="Choose your password" />
+            <input type="password" class="password form-control {{ $errors->has('password') ? ' is-invalid' : '' }}"  id="password" name="password" placeholder="Choose your password" />
 
             @if ($errors->has('password'))
                 <span class="password invalid-feedback">

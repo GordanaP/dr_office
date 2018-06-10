@@ -3,11 +3,12 @@
 namespace App\Services\Models;
 
 use App\Traits\Profile\HasAvatar;
+use App\Traits\User\HasCredentials;
 use App\User;
 
 class UserService
 {
-    use HasAvatar;
+    use HasAvatar, HasCredentials;
 
     protected $user;
 
@@ -30,7 +31,6 @@ class UserService
     {
         return User::with('roles:name')->orderBy($column, $order)->get();
     }
-
 
     /**
      * Find the user by the attribute.
@@ -73,30 +73,30 @@ class UserService
      * @param  array $data
      * @return void
      */
-    public function updateAccount($userId, $data)
+    public function updateAccount($user, $data)
     {
-        $user = User::find($userId);
-
         $user->email = $data['email'];
-
-        if ($data['first_name'] && $data['last_name'])
-        {
-            $user->name = setUsername($data['first_name'], $data['last_name']);
-        }
 
         if($data['password'])
         {
             $user->password = $data['password'];
         }
 
-        $user->save();
+        if ($data['first_name'] && $data['last_name'])
+        {
+            $user->name = setUsername($data['first_name'], $data['last_name']);
+
+            $user->createOrUpdateProfile($data);
+        }
 
         if($data['role_id'])
         {
             $user->assignRole($data['role_id']);
         }
 
-        $user->createOrUpdateProfile($data);
+        $user->save();
+
+        return $user;
     }
 
     /**
@@ -105,12 +105,21 @@ class UserService
      * @param  string $path
      * @return void
      */
-    public function deleteAccount($userId, $path)
+    public function deleteAccount($user, $path)
     {
-        $user = User::find($userId);
-
         $user->profile->removeAvatarFromDestination($path);
 
         $user->delete();
+    }
+
+    /**
+     * The user has changed login credentials.
+     *
+     * @param  array  $data
+     * @return boolean
+     */
+    public function hasChangedLoginCredentials($user, $newEmail, $newPassword)
+    {
+        return $this->hasChangedEmail($user, $newEmail) || $this->hasChangedPassword($user, $newPassword);
     }
 }

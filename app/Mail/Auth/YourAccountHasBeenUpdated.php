@@ -11,7 +11,7 @@ class YourAccountHasBeenUpdated extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $user;
+    public $email;
     public $password;
 
     /**
@@ -19,9 +19,9 @@ class YourAccountHasBeenUpdated extends Mailable
      *
      * @return void
      */
-    public function __construct($user, $password)
+    public function __construct($email, $password)
     {
-        $this->user = $user;
+        $this->email = $email;
         $this->password = $password;
     }
 

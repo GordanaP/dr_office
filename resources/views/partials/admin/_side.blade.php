@@ -11,7 +11,7 @@
 
             <div class="flex-2">
                 <p class="mb-12" id="authProfileName">
-                    <b class="mr-18">{{ setFullName($user->profile->first_name, $user->profile->last_name) }}</b>
+                    <b class="mr-18">{{ setFullName(Auth::user()->profile->first_name, Auth::user()->profile->last_name) }}</b>
                 </p>
 
                 <p class="mb-12 fs-11">

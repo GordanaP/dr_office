@@ -9,7 +9,7 @@ class AccountUpdatedByAdmin
 {
     use Dispatchable, SerializesModels;
 
-    public $user;
+    public $email;
     public $password;
 
     /**
@@ -17,9 +17,9 @@ class AccountUpdatedByAdmin
      *
      * @return void
      */
-    public function __construct($user, $password)
+    public function __construct($email, $password)
     {
-        $this->user = $user;
+        $this->email = $email;
         $this->password = $password;
     }
 }

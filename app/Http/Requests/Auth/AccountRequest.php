@@ -24,7 +24,7 @@ class AccountRequest extends FormRequest
      */
     public function rules()
     {
-        $userId = $this->route()->parameter('userId') ?: \Auth::id();
+        $userId = optional($this->user)->id ?: \Auth::id();
 
         switch ($this->method())
         {
@@ -46,7 +46,7 @@ class AccountRequest extends FormRequest
             case 'PATCH':
                 return [
                     'role_id' => 'exists:roles,id',
-                    'title' => 'required|string|max:30',
+                    'title' => 'sometimes|required|string|max:30',
                     'first_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
                     'last_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
                     'email' => 'required|string|email|max:100|unique:users,email,'.$userId,

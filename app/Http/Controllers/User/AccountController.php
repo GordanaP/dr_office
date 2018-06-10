@@ -6,11 +6,12 @@ use App\Events\Auth\AccountCreatedByAdmin;
 use App\Events\Auth\AccountUpdatedByAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AccountRequest;
-use App\Role;
 use App\Services\Models\RoleService;
 use App\Services\Models\UserService;
 use App\User;
 use Auth;
+use Illuminate\Http\Request;
+use Hash;
 
 class AccountController extends Controller
 {
@@ -84,12 +85,10 @@ class AccountController extends Controller
      * @param  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function show($userId)
+    public function show(User $user)
     {
         if(request()->ajax())
         {
-            $user = User::find($userId);
-
             $html = view('users.roles.partials._html', compact('user'))->render();
 
             return response([
@@ -119,22 +118,24 @@ class AccountController extends Controller
      * @userId  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function update(AccountRequest $request, $userId = null)
+    public function update(AccountRequest $request, User $user)
     {
         if ($request->ajax())
         {
-            $this->users->updateAccount($userId, $request);
+            $newEmail = $request->email;
+            $newPassword = $request->password;
 
-            $user = User::find($userId);
-
-            if(! $user->isAdmin()) {
-                event(new AccountUpdatedByAdmin($user, $request->password));
+            if ($this->users->hasChangedLoginCredentials($user, $newEmail, $newPassword))
+            {
+                event(new AccountUpdatedByAdmin($newEmail, $newPassword));
             }
+
+            $this->users->updateAccount($user, $request);
 
             return message('The account has been updated');
         }
 
-        $this->users->updateAccount(Auth::id(), $request);
+        $this->users->updateAccount(Auth::user(), $request);
 
         return $this->updated();
     }
@@ -145,11 +146,11 @@ class AccountController extends Controller
      * @userId  int  $userId
      * @return \Illuminate\Http\Response
      */
-    public function destroy($userId)
+    public function destroy(User $user)
     {
         if (request()->ajax())
         {
-            $this->users->deleteAccount($userId, $this->avatarPath);
+            $this->users->deleteAccount($user, $this->avatarPath);
 
             return message('The account has been deleted.');
         }

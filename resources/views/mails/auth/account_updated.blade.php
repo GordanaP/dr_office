@@ -3,7 +3,7 @@
 
 Your account has been updated.
 
-<p style="margin-bottom: 0;">username: {{ $user->email }}</p>
+<p style="margin-bottom: 0;">username: {{ $email }}</p>
 <p>password: {{ $password ?: 'Your password has not been changed' }}</p>
 
 Thanks,<br>

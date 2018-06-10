@@ -43,7 +43,7 @@
         // Profile
         var profileModal = $('#profileModal')
         var profileForm = $('#adminProfileForm')
-        var profileFields = ['name', 'about', 'location']
+        var profileFields = ['title', 'first_name', 'last_name']
 
         profileModal.setAutofocus('profileName')
         profileModal.emptyModal(profileFields)

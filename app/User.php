@@ -6,6 +6,7 @@ use App\Observers\UserObserver;
 use App\Traits\User\HasProfile;
 use App\Traits\User\HasRoles;
 use App\Traits\User\VerifiesEmail;
+use Hash;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -48,16 +49,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-
-    /**
      * Format the account creation date.
      *
      * @return string
@@ -77,9 +68,14 @@ class User extends Authenticatable
         return $this->hasOne(ActivationToken::class);
     }
 
+    /**
+     * Set the user's password.
+     *
+     * @param  string  $value
+     * @return void
+     */
     public function setPasswordAttribute($value)
     {
-        return $this->attributes['password'] = bcrypt($value);
+        $this->attributes['password'] = Hash::make($value);
     }
-
 }

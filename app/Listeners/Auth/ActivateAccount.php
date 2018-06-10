@@ -54,9 +54,9 @@ class ActivateAccount
      * @param  AccountCreatedByAdmin  $event
      * @return void
      */
-    public function sendPassword(AccountUpdatedByAdmin $event)
+    public function sendLoginCredentials(AccountUpdatedByAdmin $event)
     {
-        Mail::to($event->user)
-            ->send(new YourAccountHasBeenUpdated($event->user, $event->password));
+        Mail::to($event->email)
+            ->send(new YourAccountHasBeenUpdated($event->email, $event->password));
     }
 }

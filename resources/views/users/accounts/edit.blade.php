@@ -1,19 +1,23 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('title', '| My account')
 
-@section('side')
-    @include('partials.side._auth')
+@section('content')
+    <div class="col-md-8 offset-md-2">
+        @component('components.user_card')
+            @slot('header')
+                <i class="fa fa-lock mr-6"></i> My account
+            @endslot
+
+            @slot('body')
+                @include('users.accounts.partials.forms._edit')
+            @endslot
+        @endcomponent
+    </div>
 @endsection
 
-@section('content')
-    @component('components.user_card')
-        @slot('header')
-            <i class="fa fa-lock fa-panel mr-6"></i> My account
-        @endslot
-
-        @slot('body')
-            @include('users.accounts.partials.forms._edit')
-        @endslot
-    @endcomponent
+@section('scripts')
+    <script>
+        clearErrorOnNewInput()
+    </script>
 @endsection

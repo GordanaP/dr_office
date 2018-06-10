@@ -4,11 +4,9 @@ $(document).on('click', '#editProfile', function(){
     $('#deleteProfile').hide()
 
     var user = $(this).attr('data-user') || $(this).val()
-    // var username = $(this).attr('data-name')
     var showProfileUrl = '/admin/profiles/' + user
 
     $('.modal-title i').addClass('fa-user')
-    // $('.modal-title span').text(username)
     $('#saveProfile').val(user)
     $('#deleteProfile').val(user)
 

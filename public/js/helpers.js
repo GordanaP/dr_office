@@ -50,15 +50,15 @@ function toggleHiddenFieldWithRadio(checked_value, hidden_field)
  * @param  {array} fields
  * @return {void}
  */
-function removeServerSideValidationFeedback(fields)
-{
-    $.each(fields, function (index, value) {
+// function removeServerSideValidationFeedback(fields)
+// {
+//     $.each(fields, function (index, value) {
 
-        var inputId = value.id
+//         var inputId = value.id
 
-        clearError(inputId)
-    })
-}
+//         clearError(inputId)
+//     })
+// }
 
 /**
  * Set datatable counter column
@@ -189,27 +189,6 @@ function displayErrors(errors)
         // Remove client side validation
         clearJSError(field)
     }
-}
-
-/**
- * Get checkbox values
- *
- * @param  {array} checked
- * @return {array}
- */
-function checkedValues(checkbox)
-{
-    var checkedValues = [];
-
-    var checked = $('input[name*="'+checkbox+'"]:checked')
-
-    $.each(checked, function(key, value) {
-
-        var value = $(this).val()
-        checkedValues.push(value)
-    })
-
-    return checkedValues;
 }
 
 /**
@@ -517,3 +496,23 @@ function getCheckedValue(form, fieldName)
 }
 
 
+/**
+ * Get checkbox values
+ *
+ * @param  {array} checked
+ * @return {array}
+ */
+function checkedValues(checkbox)
+{
+    var checkedValues = [];
+
+    var checked = $('input[name*="'+checkbox+'"]:checked')
+
+    $.each(checked, function(key, value) {
+
+        var value = $(this).val()
+        checkedValues.push(value)
+    })
+
+    return checkedValues;
+}
