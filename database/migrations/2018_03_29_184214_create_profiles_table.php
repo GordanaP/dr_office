@@ -23,6 +23,7 @@ class CreateProfilesTable extends Migration
             $table->string('title', 30);
             $table->string('first_name', 30);
             $table->string('last_name', 30);
+            $table->text('education', 300)->nullable();
             $table->timestamps();
         });
     }

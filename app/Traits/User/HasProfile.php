@@ -42,14 +42,27 @@ trait HasProfile
     {
         $profile = $this->profile ?: new Profile;
 
-        $slug = $this->getSlug($profile, $data['first_name'], $data['last_name']);
+        if($data['first_name'] && $data['last_name'] && $data['title']) {
 
-        $profile->title = $data['title'];
-        $profile->first_name = $data['first_name'];
-        $profile->last_name = $data['last_name'];
-        $profile->slug = $slug;
+            $slug = $this->getSlug($profile, $data['first_name'], $data['last_name']);
+
+            $profile->title = $data['title'];
+            $profile->first_name = $data['first_name'];
+            $profile->last_name = $data['last_name'];
+            $profile->slug = $slug;
+        }
+
+        if($data['education']){
+
+            $profile->education = $data['education'];
+        }
 
         $this->profile()->save($profile);
+
+        $newUsername = setUsername($profile->first_name, $profile->last_name);
+
+        $profile->user->name = $newUsername;
+        $profile->user->save();
 
         return $profile;
     }

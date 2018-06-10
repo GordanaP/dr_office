@@ -210,6 +210,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'AvatarOptions' => App\Services\Utilities\AvatarOptions::class,
+        'ProfileTitles' => App\Services\Utilities\ProfileTitles::class,
     ],
 
 ];

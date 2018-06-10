@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Rules\DifferentFromName;
+use App\Services\Utilities\ProfileTitles;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AccountRequest extends FormRequest
@@ -31,7 +32,7 @@ class AccountRequest extends FormRequest
             case 'POST':
                 return [
                     'role_id' => 'exists:roles,id',
-                    'title' => 'required|string|max:30',
+                    'title' => 'required|in:'.ProfileTitles::getArray(),
                     'first_name' => 'required|string|alpha_num|max:30',
                     'last_name' => 'required|string|alpha_num|max:30',
                     'email' => 'required|string|email|max:100|unique:users,email',
@@ -46,15 +47,14 @@ class AccountRequest extends FormRequest
             case 'PATCH':
                 return [
                     'role_id' => 'exists:roles,id',
-                    'title' => 'sometimes|required|string|max:30',
+                    'title' => 'sometimes|required|in:'.ProfileTitles::getArray(),
                     'first_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
                     'last_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
                     'email' => 'required|string|email|max:100|unique:users,email,'.$userId,
                     'password' => [
                         'nullable',
                         'required_if:create_password,manual',
-                        'string',
-                        'min:6',
+                        'string', 'min:6',
                         new DifferentFromName($this->name, $this->password),
                         'confirmed'
                     ],

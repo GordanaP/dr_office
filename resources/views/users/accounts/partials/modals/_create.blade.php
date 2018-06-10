@@ -34,7 +34,13 @@
                     <div class="form-group">
                         <label for="title">Title <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
 
-                        <input type="text" class="form-control admin-modal-input title" id="title" name="title" placeholder="Enter title" />
+                        <select name="title" id="title" class="form-control title">
+                            <option value="">Select a title</option>
+
+                            @foreach (ProfileTitles::all() as $title => $description)
+                                <option value="{{ $title }}">{{ $description }}</option>
+                            @endforeach
+                        </select>
 
                         <span class="invalid-feedback title"></span>
                     </div>

@@ -1,16 +1,20 @@
 <div class="card mb-4 box-shadow bg-lightest-grey" id="adminSettings">
 
     <div class="card-body">
-        <div id="userProfile">
+        <div id="userEducation">
 
             <p class="card-text mb-8">
-                <b>Profile name:</b> {{ setFullName($user->profile->first_name, $user->profile->last_name) ?: $user->name }}
+                <span class="text-uppercase" id="education"><b>Education:</b></span>
+                <a href="#" id="editEducation" data-user="{{ $user->id }}">
+                    {{ $user->profile->education ? 'Change' : "Add" }}
+                </a>
             </p>
 
-            <button type="button" class="btn btn-warning btn-link" id="editProfile"  data-name="{{ $user->name }}" value="{{$user->id }}">
-                {{ 'Edit' }}
-            </button>
+            <p>
+                {{ $user->profile->education }}
+            </p>
 
         </div>
     </div>
+
 </div>

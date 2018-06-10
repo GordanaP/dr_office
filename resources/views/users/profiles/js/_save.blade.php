@@ -16,8 +16,6 @@ $(document).on('click', '#saveProfile', function() {
         success: function(response) {
 
             $('#userProfileName').load(location.href + ' #userProfileName')
-            $('#userProfile').load(location.href + ' #userProfile')
-
             $('#authProfileName').load(location.href + ' #authProfileName')
 
             successResponse(profileModal, response.message)

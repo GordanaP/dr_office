@@ -516,3 +516,8 @@ function checkedValues(checkbox)
 
     return checkedValues;
 }
+
+function getJsonErrors(response)
+{
+    return response.responseJSON.errors
+}

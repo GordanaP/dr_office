@@ -35,8 +35,12 @@
                     <!-- Title -->
                     <div class="form-group">
                         <label for="title">Title <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
-
-                        <input type="text" class="form-control admin-modal-input title" id="_title" name="title" placeholder="Enter title" />
+                        <select name="title" id="_title" class="form-control title">
+                            <option value="">Select a title</option>
+                            @foreach (ProfileTitles::all() as $title => $description)
+                                <option value="{{ $title }}">{{ $description }}</option>
+                            @endforeach
+                        </select>
 
                         <span class="invalid-feedback title"></span>
                     </div>
@@ -101,6 +105,7 @@
                     </div>
                 </div>
 
+                <!-- Buttons -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary btn-account admin-modal-btn" id="updateAccount">Save changes</button>
                     <button type="button" class="btn btn-secondary admin-modal-btn-close" data-dismiss="modal">Close</button>

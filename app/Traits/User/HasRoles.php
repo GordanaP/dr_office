@@ -57,6 +57,16 @@ trait HasRoles
     }
 
     /**
+     * Determine if the user is an doctor
+     *
+     * @return boolean
+     */
+    public function isDoctor()
+    {
+        return $this->hasRole('doctor');
+    }
+
+    /**
      * Determine if the user is an administrator
      *
      * @return boolean

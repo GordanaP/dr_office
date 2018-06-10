@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\AlphaNumSpace;
+use App\Services\Utilities\ProfileTitles;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileRequest extends FormRequest
@@ -25,9 +26,10 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:30',
+            'title' => 'sometimes|required|in:'.ProfileTitles::getArray(),
             'first_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
-            'last_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes)
+            'last_name' => 'sometimes|required|string|alpha_num|max:30', //the field may be absent from the form(sometimes),
+            'education' => 'sometimes|required|max:300'
         ];
     }
 
