@@ -19,7 +19,7 @@
                     <!-- Education -->
                     <div class="form-group">
                         <label for="education">Education  <sup><i class="fa fa-asterisk fa-form red"></i></sup></label>
-                        <input name="education" id="edu" class="form-control education" placeholder="Enter education">
+                        <textarea name="education" id="education" rows="5" class="form-control education" placeholder="Enter education"></textarea>
 
                         <span class="invalid-feedback education"></span>
                     </div>

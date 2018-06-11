@@ -1,20 +1,24 @@
 <div class="card mb-4 box-shadow bg-lightest-grey" id="adminSettings">
 
-    <div class="card-body">
-        <div id="userEducation">
+    @php
+        $parse = new Parsedown;
+    @endphp
 
-            <p class="card-text mb-8">
-                <span class="text-uppercase" id="education"><b>Education:</b></span>
+    <div class="card-body">
+
+            <p class="card-text mb-3">
+                <span class="text-uppercase">Education:</span>
                 <a href="#" id="editEducation" data-user="{{ $user->id }}">
                     {{ $user->profile->education ? 'Change' : "Add" }}
                 </a>
             </p>
 
-            <p>
-                {{ $user->profile->education }}
-            </p>
+            <div id="userEducation">
+                @php
+                    echo $parse->text($user->profile->education);
+                @endphp
+            </div>
 
-        </div>
     </div>
 
 </div>

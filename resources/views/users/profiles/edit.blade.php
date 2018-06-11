@@ -2,6 +2,12 @@
 
 @section('title', '| Admin | Profiles | Edit')
 
+@section('links')
+    <style>
+        #userEducation p { margin-left: 18px; margin-bottom: 8px; }
+    </style>
+@endsection
+
 @section('content')
     @php
         $titles = array_keys(ProfileTitles::all());
@@ -108,7 +114,7 @@
                 {
                     var profile = response.profile
 
-                    $('#edu').val(profile.education)
+                    $('#education').val(profile.education)
                 }
             })
         });
@@ -118,7 +124,7 @@
             var user = $(this).val()
             var updateProfileUrl = '/admin/profiles/' + user
 
-            var education = $('#edu').val();
+            var education = $('#education').val();
 
             var data = {
                 'education': education
