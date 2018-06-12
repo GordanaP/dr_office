@@ -52,4 +52,9 @@ class Profile extends Model
     {
         return $this->hasOne(Avatar::class);
     }
+
+    public function workingDays()
+    {
+        return $this->belongsToMany(WorkingDay::class)->withPivot('start_at', 'end_at');
+    }
 }

@@ -5,19 +5,11 @@
 @section('links')
     <style>
         #userEducation p { margin-left: 18px; margin-bottom: 8px; }
+        button { border-radius: 0 !important }
     </style>
 @endsection
 
 @section('content')
-    @php
-        $titles = array_keys(ProfileTitles::all());
-
-        $titleArray = implode(',', $titles);
-    @endphp
-
-    {{ is_array($titleArray) }}
-
-
     <!-- Page title -->
     <div class="pb-2 col-md-12">
         <h2 class="admin-title-no-button">
@@ -34,17 +26,39 @@
 
     <div class="col-md-12">
         <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div id="userProfileAvatar" class="text-center mb-3">
+                        <img class="card-img-top image image-responsive" src="{{ asset(setAvatar($user->profile)) }}" alt="">
+                    </div>
+                    <a href="#" id="changeAvatar" class="text-center"  data-name="{{ $user->name }}" data-profile="{{ $user->profile->slug }}">
+                        Change
+                    </a>
 
-            <!-- Avatar -->
-            <div class="pb-2 col-md-3 text-center">
-                @include('users.profiles.partials._avatar')
+                    <div class="card-body mt-3">
+                        <h5 class="card-title mb-0">Working days</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Monday <span class="pull-right">16:00-19:00</span></li>
+                        <li class="list-group-item">Wednesday <span class="pull-right">16:00-19:00</span></li>
+                        {{-- <button type="button" class="list-group-item list-group-item-action bg-blue"><a href="#" class="card-link">Card link</a></button> --}}
+                    </ul>
+                    {{-- <div class="card-body"> --}}
+                        <button type="button" class="btn btn-block btn-info rounded-none" >Change</a>
+                    {{-- </div> --}}
+                </div>
             </div>
 
-            <!-- Profile -->
-            <div class="pb-2 col-md-9"  style="padding-left: 70px;">
-                @include('users.profiles.partials._card')
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-6">
+                        @include('users.profiles.partials._card')
+                    </div>
+                    <div class="col-md-6">
+                        @include('users.profiles.partials._card')
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 

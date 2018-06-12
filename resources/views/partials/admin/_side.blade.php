@@ -42,9 +42,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="shopping-cart"></span>
-                    Products
+                <a class="nav-link {{ set_active_link('working_days', 2) }}" href="{{ route('admin.working_days.schedule') }}">
+                    <span data-feather="calendar"></span>
+                    Schedule
                 </a>
             </li>
             <li class="nav-item">
