@@ -11,7 +11,7 @@ class WorkingDaysTableSeeder extends Seeder
      */
     public function run()
     {
-        $week = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        $week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
         for ($i=0; $i < sizeof($week); $i++)
         {

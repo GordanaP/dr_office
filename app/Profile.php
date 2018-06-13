@@ -55,6 +55,27 @@ class Profile extends Model
 
     public function workingDays()
     {
-        return $this->belongsToMany(WorkingDay::class)->withPivot('start_at', 'end_at');
+        return $this->belongsToMany(WorkingDay::class)->as('work')->withPivot('start_at', 'end_at');
     }
+
+    public function getFullName()
+    {
+        return ucfirst($this->first_name) .' ' .ucfirst($this->last_name);
+    }
+
+    public function isWorkingOn($day)
+    {
+        return $this->workingDays->contains($day);
+    }
+
+    public function workingDay($time)
+    {
+        return $this->workingDays->first()->work->$time;
+    }
+
+    public function hasDailySchedule()
+    {
+        return $this->workingDays->count();
+    }
+
 }

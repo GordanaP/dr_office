@@ -39,7 +39,7 @@ class ProfileController extends Controller
     public function edit(User $user)
     {
         return view('users.profiles.edit')->with([
-            'user' => $user->load('profile', 'profile.avatar', 'roles'),
+            'user' => $user->load('profile', 'profile.avatar'),
         ]);
     }
 

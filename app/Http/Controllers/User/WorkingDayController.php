@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
+use App\Profile;
 use App\WorkingDay;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class WorkingDayController extends Controller
 {
@@ -20,7 +21,10 @@ class WorkingDayController extends Controller
 
     public function schedule()
     {
-        return view('users.working_days.index');
+        $days = WorkingDay::all();
+        $profiles = Profile::with('workingDays')->get();
+
+        return view('users.working_days.index', compact('days', 'profiles'));
     }
 
     /**

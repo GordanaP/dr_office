@@ -39,13 +39,14 @@
                         <h5 class="card-title mb-0">Working days</h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Monday <span class="pull-right">16:00-19:00</span></li>
-                        <li class="list-group-item">Wednesday <span class="pull-right">16:00-19:00</span></li>
-                        {{-- <button type="button" class="list-group-item list-group-item-action bg-blue"><a href="#" class="card-link">Card link</a></button> --}}
+                        @foreach ($user->profile->workingDays as $day)
+                            <li class="list-group-item">
+                                {{ $day->name }}
+                                <span class="pull-right">{{ $day->work->start_at }}-{{ $day->work->end_at }}</span>
+                            </li>
+                        @endforeach
                     </ul>
-                    {{-- <div class="card-body"> --}}
-                        <button type="button" class="btn btn-block btn-info rounded-none" >Change</a>
-                    {{-- </div> --}}
+                    <button type="button" class="btn btn-block btn-info rounded-none" >Change</a>
                 </div>
             </div>
 
