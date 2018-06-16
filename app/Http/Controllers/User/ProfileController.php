@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
+use App\Profile;
 use App\User;
 
 class ProfileController extends Controller
@@ -36,10 +37,10 @@ class ProfileController extends Controller
         }
     }
 
-    public function edit(User $user)
+    public function edit(Profile $profile)
     {
         return view('users.profiles.edit')->with([
-            'user' => $user->load('profile', 'profile.avatar'),
+            'profile' => $profile->load('avatar'),
         ]);
     }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AvatarRequest;
 use App\Profile;
 use Auth;
+use Illuminate\Http\Request;
 
 class AvatarController extends Controller
 {
@@ -44,7 +45,7 @@ class AvatarController extends Controller
      * @param  int  $profileId
      * @return \Illuminate\Http\Response
      */
-    public function update(AvatarRequest $request, Profile $profile)
+    public function update(Request $request, Profile $profile)
     {
         if($request->ajax()) {
 

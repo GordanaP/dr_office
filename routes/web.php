@@ -1,7 +1,7 @@
 <?php
 
 Route::resource('tests', 'TestController', [
-    'parameters' => ['tests' => 'user'],
+    'parameters' => ['tests' => 'profile'],
 ]);
 
 /**
@@ -69,9 +69,10 @@ Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
     /**
      * Profile
      */
+    Route::get('profiles/{profile}/edit', 'ProfileController@edit')->name('profiles.edit');
     Route::resource('/profiles', 'ProfileController', [
         'parameters' => ['profiles' => 'user'],
-        'only' => ['show', 'edit', 'update']
+        'only' => ['show', 'update']
     ]);
 
     /**

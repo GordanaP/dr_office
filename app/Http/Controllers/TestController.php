@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WorkingDayRequest;
+use App\Profile;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -44,9 +46,18 @@ class TestController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Profile $profile)
     {
-        //
+        if(request()->ajax())
+        {
+            $html = view('users.working_days.partials._html_edit', compact('profile'))->render();
+
+            return response([
+                'profile' => $profile->load('workingDays'),
+                'html' => $html
+            ]);
+        }
+
     }
 
     /**
@@ -55,9 +66,9 @@ class TestController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Profile $profile)
     {
-        return view('test', compact('user'));
+        return view('test', compact('profile'));
     }
 
     /**
@@ -67,9 +78,38 @@ class TestController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(WorkingDayRequest $request, Profile $profile)
     {
-        return $request->all();
+        $array = $request->day;
+
+        $days = [];
+
+        for ($i=0; $i < sizeof($array) ; $i++)
+        {
+            if ($array[$i]['working_day_id'])
+            {
+                array_push($days, $array[$i]);
+            }
+        }
+
+        $working_days = collect($days)->mapWithKeys(function ($day) {
+            return [
+                $day['working_day_id'] => [
+                    'start_at' => $day['start_at'],
+                    'end_at' => $day['end_at'],
+                ]
+            ];
+        });
+
+        $profile->workingDays()->sync($working_days->all());
+
+        if (request()->ajax())
+        {
+            return message('Schedule Updated');
+        }
+        else{
+            return back();
+        }
     }
 
     /**

@@ -7,13 +7,13 @@
     <div class="card-body">
         <p class="card-text mb-3">
             <span class="text-uppercase">Education:</span>
-            <a href="#" id="editEducation" data-user="{{ $user->id }}">
-                {{ $user->profile->education ? 'Change' : "Add" }}
+            <a href="#" id="editEducation" data-user="{{ $profile->user->id }}">
+                {{ $profile->education ? 'Change' : "Add" }}
             </a>
         </p>
         <div id="userEducation">
             @php
-                echo $parse->text($user->profile->education);
+                echo $parse->text($profile->education);
             @endphp
         </div>
     </div>

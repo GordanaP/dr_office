@@ -14,10 +14,10 @@
     <div class="pb-2 col-md-12">
         <h2 class="admin-title-no-button">
             <span id="userProfileName" class="mr-3">
-                {{ $user->profile->title }} {{ setFullName($user->profile->first_name, $user->profile->last_name) }}
+                {{ $profile->title }} {{ $profile->getFullName() }}
             </span>
 
-            <button type="button" class="btn btn-warning btn-link" id="editProfile"  data-name="{{ $user->name }}" value="{{$user->id }}">
+            <button type="button" class="btn btn-warning btn-link" id="editProfile"  data-name="{{ $profile->user->name }}" value="{{$profile->user->id }}">
                  Edit
             </button>
         </h2>
@@ -29,24 +29,28 @@
             <div class="col-md-3">
                 <div class="card">
                     <div id="userProfileAvatar" class="text-center mb-3">
-                        <img class="card-img-top image image-responsive" src="{{ asset(setAvatar($user->profile)) }}" alt="">
+                        <img class="card-img-top image image-responsive" src="{{ asset($profile->getAvatar()) }}" alt="" style="max-height: 280px" />
                     </div>
-                    <a href="#" id="changeAvatar" class="text-center"  data-name="{{ $user->name }}" data-profile="{{ $user->profile->slug }}">
+                    <a href="#" id="changeAvatar" class="text-center"  data-name="{{ $profile->user->name }}" data-profile="{{ $profile->slug }}">
                         Change
                     </a>
 
                     <div class="card-body mt-3">
-                        <h5 class="card-title mb-0">Working days</h5>
+                        <h5 class="card-title align-center justify-between flex mb-0">
+                            <span>Working days</span>
+                            <button type="button" class="btn btn-info rounded-none" id="{{ $profile->hasSchedule() ? 'changeSchedule' : 'addChedule'}}">
+                                {{ $profile->hasSchedule() ? 'Change' : 'Add'}}
+                            </button>
+                        </h5>
                     </div>
                     <ul class="list-group list-group-flush">
-                        @foreach ($user->profile->workingDays as $day)
+                        @foreach ($profile->workingDays as $day)
                             <li class="list-group-item">
                                 {{ $day->name }}
                                 <span class="pull-right">{{ $day->work->start_at }}-{{ $day->work->end_at }}</span>
                             </li>
                         @endforeach
                     </ul>
-                    <button type="button" class="btn btn-block btn-info rounded-none" >Change</a>
                 </div>
             </div>
 
@@ -67,6 +71,7 @@
     @include('users.profiles.partials.modals._edit')
     @include('users.profiles.partials.modals._education')
     @include('users.avatars.partials.modals._edit')
+    @include('users.working_days.partials.modals._edit')
 
 @endsection
 
@@ -89,6 +94,18 @@
         avatarModal.setAutofocus('avatar_options')
         avatarModal.emptyModal(avatarFields)
 
+        // Education
+        var educationModal = $('#educationModal'),
+            educationForm = $('#educationForm'),
+            educationFields = ['education']
+
+        educationModal.setAutofocus('education')
+        educationModal.emptyModal(educationFields)
+
+        // WorkingDays
+        var scheduleModal = $('#scheduleModal'),
+            scheduleForm = $('#scheduleForm')
+
         // Edit profile
         @include('users.profiles.js._edit')
 
@@ -104,61 +121,15 @@
         // Save Avatar
         @include('users.avatars.js._save')
 
-        var educationModal = $('#educationModal'),
-            educationForm = $('#educationForm'),
-            educationFields = ['education']
+        // Edit education
+        @include('users.profiles.js.education._edit')
 
-        educationModal.setAutofocus('education')
-        educationModal.emptyModal(educationFields)
+        // Save education
+        @include('users.profiles.js.education._save')
 
 
-        $(document).on('click', '#editEducation', function() {
-
-            educationModal.modal('show');
-
-            var user = $(this).attr('data-user')
-            var showProfileUrl = '/admin/profiles/' + user
-
-            $('.modal-title span').text('Education')
-            $('#saveEducation').text('Save').val(user)
-
-            $.ajax({
-                url: showProfileUrl,
-                type: "GET",
-                success: function(response)
-                {
-                    var profile = response.profile
-
-                    $('#education').val(profile.education)
-                }
-            })
-        });
-
-        $(document).on('click', '#saveEducation', function(){
-
-            var user = $(this).val()
-            var updateProfileUrl = '/admin/profiles/' + user
-
-            var education = $('#education').val();
-
-            var data = {
-                'education': education
-            }
-
-            $.ajax({
-                url: updateProfileUrl,
-                type: 'PATCH',
-                data: data,
-                success: function(response) {
-
-                    $('#userEducation').load(location.href + ' #userEducation')
-
-                    successResponse(educationModal, response.message)
-                },
-                error: function(response) {
-                    errorResponse(getJsonErrors(response), educationModal)
-                }
-            })
+        $(document).on('click', '#changeSchedule', function(){
+            scheduleModal.modal('show')
         })
 
     </script>

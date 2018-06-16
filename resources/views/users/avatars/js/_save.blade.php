@@ -6,6 +6,7 @@ $(document).on('click', '#saveAvatar', function() {
     var formData = new FormData(avatarForm[0])
     formData.append('_method', 'PUT');
 
+
     $.ajax({
         url : updateAvatarUrl,
         type : "POST",

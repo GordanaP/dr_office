@@ -63,6 +63,7 @@ class Profile extends Model
         return ucfirst($this->first_name) .' ' .ucfirst($this->last_name);
     }
 
+
     public function isWorkingOn($day)
     {
         return $this->workingDays->contains($day);
@@ -73,9 +74,16 @@ class Profile extends Model
         return $this->workingDays->first()->work->$time;
     }
 
-    public function hasDailySchedule()
+    public function hasSchedule()
     {
         return $this->workingDays->count();
+    }
+
+    public function getAvatar($path = 'images/avatars', $default='default.jpg')
+    {
+        $fileName = optional($this->avatar)->filename ?: $default;
+
+        return $path.'/'.$fileName;
     }
 
 }

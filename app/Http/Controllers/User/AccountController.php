@@ -45,7 +45,7 @@ class AccountController extends Controller
         {
             $users = $this->users->get();
 
-            return [ 'data' => $users ];
+            return [ 'data' => $users->load('profile') ];
         }
     }
 
