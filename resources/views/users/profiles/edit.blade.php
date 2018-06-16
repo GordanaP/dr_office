@@ -138,14 +138,15 @@
             createScheduleModal.modal('show')
         })
 
+
         // Add form fields dinamically
         var i = 0;
-        var maxFields = 6;
 
         $(document).on('click', '#add', function() {
 
             i++;
 
+            var maxFields = 6;
             var totalFields = $(".field").length;
 
             if (totalFields < maxFields) {

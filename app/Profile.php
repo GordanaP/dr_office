@@ -4,12 +4,13 @@ namespace App;
 
 use App\Observers\ProfileObserver;
 use App\Traits\Profile\HasAvatar;
+use App\Traits\Profile\HasSchedule;
 use App\Traits\Profile\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    use HasAvatar, HasSlug;
+    use HasAvatar, HasSlug, HasSchedule;
 
     /**
      * Bootstrap the application Profile service.
@@ -53,37 +54,37 @@ class Profile extends Model
         return $this->hasOne(Avatar::class);
     }
 
+    /**
+     * Get the working days that belong to the profile.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function workingDays()
     {
         return $this->belongsToMany(WorkingDay::class)->as('work')->withPivot('start_at', 'end_at');
     }
 
+    /**
+     * Get the profile's full name
+     *
+     * @return string
+     */
     public function getFullName()
     {
         return ucfirst($this->first_name) .' ' .ucfirst($this->last_name);
     }
 
-
-    public function isWorkingOn($day)
-    {
-        return $this->workingDays->contains($day);
-    }
-
-    public function workingDay($time)
-    {
-        return $this->workingDays->first()->work->$time;
-    }
-
-    public function hasSchedule()
-    {
-        return $this->workingDays->count();
-    }
-
+    /**
+     * Get the profile's avatar
+     *
+     * @param  string $path
+     * @param  string $default
+     * @return string
+     */
     public function getAvatar($path = 'images/avatars', $default='default.jpg')
     {
         $fileName = optional($this->avatar)->filename ?: $default;
 
         return $path.'/'.$fileName;
     }
-
 }

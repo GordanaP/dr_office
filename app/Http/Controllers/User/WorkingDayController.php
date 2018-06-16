@@ -79,38 +79,9 @@ class WorkingDayController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        $array = $request->day;
+        $profile->createOrUpdateSchedule($request->day);
 
-        $days = [];
-
-        for ($i=0; $i < sizeof($array) ; $i++)
-        {
-            if ($array[$i]['working_day_id'])
-            {
-                array_push($days, $array[$i]);
-            }
-        }
-
-        $working_days = collect($days)->mapWithKeys(function ($day) {
-            return [
-                $day['working_day_id'] => [
-                    'start_at' => $day['start_at'],
-                    'end_at' => $day['end_at'],
-                ]
-            ];
-        });
-
-        if ($profile->hasSchedule())
-        {
-            $profile->workingDays()->sync($working_days->all());
-        }
-        else
-        {
-            $profile->workingDays()->attach($working_days->all());
-        }
-
-        return message('Schedule saved');
-
+        return message('Profile working days have been saved');
     }
 
     /**

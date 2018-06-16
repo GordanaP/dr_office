@@ -68,7 +68,7 @@ trait HasProfile
     }
 
     /**
-     * Create the user name slug during account update.
+     * Create the profile slug during profile update.
      *
      * @param  \App\User $user
      * @param  string $name
