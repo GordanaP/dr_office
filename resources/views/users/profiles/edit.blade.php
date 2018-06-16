@@ -6,6 +6,7 @@
     <style>
         #userEducation p { margin-left: 18px; margin-bottom: 8px; }
         button { border-radius: 0 !important }
+        .is-hidden {display: none}
     </style>
 @endsection
 
@@ -107,9 +108,31 @@
         // WorkingDays
         var createScheduleModal = $('#createScheduleModal'),
             createScheduleForm = $('#createScheduleForm'),
-            scheduleFields = ['day']
+            scheduleFields = ['working_day_id', 'start_at', 'end_at']
+            scheduleFieldsName = 'day'
 
-        createScheduleModal.emptyModal(scheduleFields)
+        function removeDynamicFields(modal, className, arraySize)
+        {
+            for (var i = 0; i < arraySize; i++) {
+
+                var fields = modal.find("."+className)
+
+                $.each(fields, function(index, field) {
+
+                    if(i > 0)
+                    {
+                        field.remove()
+                    }
+                });
+            }
+        }
+
+        createScheduleModal.on("hidden.bs.modal", function(){
+
+            clearForm($(this))
+            clearServerErrorsForInputArray(scheduleFieldsName, scheduleFields, 6)
+            removeDynamicFields($(this), 'added-field', 6)
+        })
 
         // Edit profile
         @include('users.profiles.js._edit')
@@ -146,11 +169,12 @@
 
             i++;
 
-            var maxFields = 6;
             var totalFields = $(".field").length;
+            var maxFields = 6
 
-            if (totalFields < maxFields) {
-                $('#workingDaysFields, #schedule').append('<div class="form-group flex field"><input type="text" name="day[' + i + '][working_day_id]" id="day[' + i + '][working_day_id]" class="form-control day"><input type="text" name="day[' + i + '][start_at]" id="day[' + i + '][start_at]" class="form-control day"><input type="text" name="day[' + i + '][end_at]"id="day[' + i + '][end_at]" class="form-control day"><button type="button" class="btn btn-sm btn-remove"><i class="fa fa-remove"></i></button></div>')
+            if (totalFields < maxFields)
+            {
+                $('#workingDaysFields, #schedule').append('<div class="form-group flex field added-field"><div><input type="text" name="day['+ i +'][working_day_id]" id="day['+ i +'][working_day_id]" class="form-control day-'+ i +'-working_day_id"><span class="invalid-feedback day-'+ i +'-working_day_id"></span></div><div><input type="text" name="day['+ i +'][start_at]" id="day['+ i +'][start_at]" class="form-control day-'+ i +'-start_at"><span class="invalid-feedback day-'+ i +'-start_at"></span></div><div><input type="text" name="day['+ i +'][end_at]" id="day['+ i +'][end_at]" class="form-control day-'+ i +'-end_at"><span class="invalid-feedback day-'+ i +'-end_at"></span></div><button type="button" class="btn btn-sm btn-remove"><i class="fa fa-remove"></i></button></div>')
             }
         })
 
@@ -177,6 +201,10 @@
                     $('.btn-schedule').text('Change')
 
                     successResponse(createScheduleModal, response.message)
+                },
+                error: function(response)
+                {
+                    errorResponse(response.responseJSON.errors, createScheduleModal)
                 }
             })
         })

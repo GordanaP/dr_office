@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\WorkingDayRequest;
 use App\Profile;
 use App\WorkingDay;
 use Illuminate\Http\Request;
@@ -71,13 +72,13 @@ class WorkingDayController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Create or update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\WorkingDay  $workingDay
+     * @param  \App\Http\Requests\WorkingDayRequest  $request
+     * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
+    public function update(WorkingDayRequest $request, Profile $profile)
     {
         $profile->createOrUpdateSchedule($request->day);
 

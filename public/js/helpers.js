@@ -180,8 +180,13 @@ function displayErrors(errors)
 {
     for (let error in errors)
     {
-        var field = $("."+error)
-        var feedback = $("span."+error).show()
+        var formattedError = error.replace(/\./g , "-");
+
+        var field = $("."+formattedError)
+        var feedback = $("span."+formattedError).show()
+
+        // var field = $("."+error)
+        // var feedback = $("span."+error).show()
 
         // Attach server side validation
         displayServerError(field, feedback, errors[error][0])
@@ -360,7 +365,7 @@ $.fn.emptyModal = function(fields, checked_field, hidden_field) {
  * @param  {object} form
  * @return {void}
  */
- function clearForm(modal, checked_field, hidden_field)
+ function clearForm(modal, checked_field=null, hidden_field=null)
  {
     $(modal)
         .find('form').trigger('reset').end()
@@ -540,6 +545,13 @@ function chunkArray(myArray, chunkSize){
     return tempArray;
 }
 
+/**
+ * Get chunked array values
+ *
+ * @param  {string} inputArrayName
+ * @param  {integer} chunkSize
+ * @return {array}
+ */
 function getChunkedValues(inputArrayName, chunkSize)
 {
     var inputValues = $( "input[name*="+ inputArrayName +"]" ).map(function() {
@@ -551,6 +563,13 @@ function getChunkedValues(inputArrayName, chunkSize)
     return chunkedValues;
 }
 
+/**
+ * Create multidimensional array
+ *
+ * @param  {string} inputArrayName
+ * @param  {integer} chunkSize
+ * @return {array}                [multidimensional array]
+ */
 function createScheduleArray(inputArrayName, chunkSize)
 {
     var chunked = getChunkedValues(inputArrayName, chunkSize)
@@ -567,4 +586,27 @@ function createScheduleArray(inputArrayName, chunkSize)
     }
 
     return day;
+}
+
+/**
+ * Clear server errors for array of inputs
+ *
+ * @param  {string} arrayName
+ * @param  {array} arrayFields
+ * @param  {integer} arraySize
+ * @return {void}
+ */
+function clearServerErrorsForInputArray(arrayName, arrayFields, arraySize)
+{
+    $.each(arrayFields, function (index, name)
+    {
+        for (var i = 0; i < arraySize; i++) {
+
+            var field = $("."+ arrayName +"-"+ i +"-"+ name);
+            var feedback = $("span." + arrayName +"-"+ i +"-" + name).hide();
+
+            field.removeClass('is-invalid');
+            feedback.text('');
+        }
+    });
 }
