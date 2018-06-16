@@ -517,7 +517,54 @@ function checkedValues(checkbox)
     return checkedValues;
 }
 
-function getJsonErrors(response)
+/**
+ * Chunk an array
+ *
+ * @param  {array} myArray
+ * @param  {int} chunkSize
+ * @return {array}
+ */
+function chunkArray(myArray, chunkSize){
+    var index = 0;
+    var arrayLength = myArray.length;
+    var tempArray = [];
+
+    for (index = 0; index < arrayLength; index += chunkSize) {
+
+        myChunk = myArray.slice(index, index+chunkSize);
+
+        // Do something if you want with the group
+        tempArray.push(myChunk);
+    }
+
+    return tempArray;
+}
+
+function getChunkedValues(inputArrayName, chunkSize)
 {
-    return response.responseJSON.errors
+    var inputValues = $( "input[name*="+ inputArrayName +"]" ).map(function() {
+        return ($( this ).val());
+    }).get()
+
+    var chunkedValues = chunkArray(inputValues, chunkSize);
+
+    return chunkedValues;
+}
+
+function createScheduleArray(inputArrayName, chunkSize)
+{
+    var chunked = getChunkedValues(inputArrayName, chunkSize)
+
+    var day = [];
+
+    for (var i = 0; i < chunked.length; i++) {
+
+        day[i] = {
+            'working_day_id': chunked[i][0],
+            'start_at': chunked[i][1],
+            'end_at': chunked[i][2],
+        }
+    }
+
+    return day;
 }

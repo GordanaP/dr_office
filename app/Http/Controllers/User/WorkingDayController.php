@@ -54,7 +54,7 @@ class WorkingDayController extends Controller
      * @param  \App\WorkingDay  $workingDay
      * @return \Illuminate\Http\Response
      */
-    public function show(WorkingDay $workingDay)
+    public function show(Profile $profile)
     {
         //
     }
@@ -65,7 +65,7 @@ class WorkingDayController extends Controller
      * @param  \App\WorkingDay  $workingDay
      * @return \Illuminate\Http\Response
      */
-    public function edit(WorkingDay $workingDay)
+    public function edit(Profile $profile)
     {
         //
     }
@@ -77,9 +77,40 @@ class WorkingDayController extends Controller
      * @param  \App\WorkingDay  $workingDay
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, WorkingDay $workingDay)
+    public function update(Request $request, Profile $profile)
     {
-        //
+        $array = $request->day;
+
+        $days = [];
+
+        for ($i=0; $i < sizeof($array) ; $i++)
+        {
+            if ($array[$i]['working_day_id'])
+            {
+                array_push($days, $array[$i]);
+            }
+        }
+
+        $working_days = collect($days)->mapWithKeys(function ($day) {
+            return [
+                $day['working_day_id'] => [
+                    'start_at' => $day['start_at'],
+                    'end_at' => $day['end_at'],
+                ]
+            ];
+        });
+
+        if ($profile->hasSchedule())
+        {
+            $profile->workingDays()->sync($working_days->all());
+        }
+        else
+        {
+            $profile->workingDays()->attach($working_days->all());
+        }
+
+        return message('Schedule saved');
+
     }
 
     /**
@@ -88,7 +119,7 @@ class WorkingDayController extends Controller
      * @param  \App\WorkingDay  $workingDay
      * @return \Illuminate\Http\Response
      */
-    public function destroy(WorkingDay $workingDay)
+    public function destroy(Profile $profile)
     {
         //
     }

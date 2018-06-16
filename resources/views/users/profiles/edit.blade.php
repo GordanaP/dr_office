@@ -17,7 +17,7 @@
                 {{ $profile->title }} {{ $profile->getFullName() }}
             </span>
 
-            <button type="button" class="btn btn-warning btn-link" id="editProfile"  data-name="{{ $profile->user->name }}" value="{{$profile->user->id }}">
+            <button type="button" class="btn btn-warning btn-link" id="editProfile" data-name="{{ $profile->user->name }}" value="{{$profile->user->id }}">
                  Edit
             </button>
         </h2>
@@ -31,19 +31,19 @@
                     <div id="userProfileAvatar" class="text-center mb-3">
                         <img class="card-img-top image image-responsive" src="{{ asset($profile->getAvatar()) }}" alt="" style="max-height: 280px" />
                     </div>
-                    <a href="#" id="changeAvatar" class="text-center"  data-name="{{ $profile->user->name }}" data-profile="{{ $profile->slug }}">
+                    <a href="#" id="changeAvatar" class="text-center" data-name="{{ $profile->user->name }}" data-profile="{{ $profile->slug }}">
                         Change
                     </a>
 
                     <div class="card-body mt-3">
                         <h5 class="card-title align-center justify-between flex mb-0">
                             <span>Working days</span>
-                            <button type="button" class="btn btn-info rounded-none" id="{{ $profile->hasSchedule() ? 'changeSchedule' : 'addChedule'}}">
+                            <button type="button" class="btn btn-info rounded-none btn-schedule" id="{{ $profile->hasSchedule() ? 'changeSchedule' : 'createSchedule'}}">
                                 {{ $profile->hasSchedule() ? 'Change' : 'Add'}}
                             </button>
                         </h5>
                     </div>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush" id="displaySchedule">
                         @foreach ($profile->workingDays as $day)
                             <li class="list-group-item">
                                 {{ $day->name }}
@@ -71,12 +71,14 @@
     @include('users.profiles.partials.modals._edit')
     @include('users.profiles.partials.modals._education')
     @include('users.avatars.partials.modals._edit')
-    @include('users.working_days.partials.modals._edit')
+    @include('users.working_days.partials.modals._create')
 
 @endsection
 
 @section('scripts')
     <script>
+
+        var profile = "{{ $profile->slug }}"
 
         // Profile
         var profileModal = $('#profileModal')
@@ -103,8 +105,11 @@
         educationModal.emptyModal(educationFields)
 
         // WorkingDays
-        var scheduleModal = $('#scheduleModal'),
-            scheduleForm = $('#scheduleForm')
+        var createScheduleModal = $('#createScheduleModal'),
+            createScheduleForm = $('#createScheduleForm'),
+            scheduleFields = ['day']
+
+        createScheduleModal.emptyModal(scheduleFields)
 
         // Edit profile
         @include('users.profiles.js._edit')
@@ -127,9 +132,52 @@
         // Save education
         @include('users.profiles.js.education._save')
 
+        // Create schedule
+        $(document).on('click', '#createSchedule', function()
+        {
+            createScheduleModal.modal('show')
+        })
 
-        $(document).on('click', '#changeSchedule', function(){
-            scheduleModal.modal('show')
+        // Add form fields dinamically
+        var i = 0;
+        var maxFields = 6;
+
+        $(document).on('click', '#add', function() {
+
+            i++;
+
+            var totalFields = $(".field").length;
+
+            if (totalFields < maxFields) {
+                $('#workingDaysFields, #schedule').append('<div class="form-group flex field"><input type="text" name="day[' + i + '][working_day_id]" id="day[' + i + '][working_day_id]" class="form-control day"><input type="text" name="day[' + i + '][start_at]" id="day[' + i + '][start_at]" class="form-control day"><input type="text" name="day[' + i + '][end_at]"id="day[' + i + '][end_at]" class="form-control day"><button type="button" class="btn btn-sm btn-remove"><i class="fa fa-remove"></i></button></div>')
+            }
+        })
+
+        // Remove form fields dinamically
+        $(document).on('click', '.btn-remove', function(){
+            $(this).parent('div').remove()
+        })
+
+        // Store schedule
+        $(document).on('click', '#storeSchedule', function()
+        {
+            var day = createScheduleArray('day', 3)
+            var storeScheduleUrl = '/admin/working_days/' + profile
+
+            $.ajax({
+                url: storeScheduleUrl,
+                type: "PATCH",
+                data: {
+                    day: day
+                },
+                success: function(response)
+                {
+                    $('#displaySchedule').load(location.href + ' #displaySchedule')
+                    $('.btn-schedule').text('Change')
+
+                    successResponse(createScheduleModal, response.message)
+                }
+            })
         })
 
     </script>

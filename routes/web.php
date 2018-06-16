@@ -88,6 +88,6 @@ Route::prefix('admin')->namespace('User')->name('admin.')->group(function() {
      */
     Route::get('/working_days/schedule', 'WorkingDayController@schedule')->name('working_days.schedule');
     Route::resource('working_days', 'WorkingDayController', [
-        'parameters' => ['working_days' => 'workingDay'],
+        'parameters' => ['working_days' => 'profile'],
     ]);
 });
