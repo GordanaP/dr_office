@@ -111,27 +111,9 @@
             scheduleFields = ['working_day_id', 'start_at', 'end_at']
             scheduleFieldsName = 'day'
 
-        function removeDynamicFields(modal, className, arraySize)
-        {
-            for (var i = 0; i < arraySize; i++) {
-
-                var fields = modal.find("."+className)
-
-                $.each(fields, function(index, field) {
-
-                    if(i > 0)
-                    {
-                        field.remove()
-                    }
-                });
-            }
-        }
-
         createScheduleModal.on("hidden.bs.modal", function(){
-
             clearForm($(this))
             clearServerErrorsForInputArray(scheduleFieldsName, scheduleFields, 6)
-            removeDynamicFields($(this), 'added-field', 6)
         })
 
         // Edit profile
@@ -158,25 +140,50 @@
         // Create schedule
         $(document).on('click', '#createSchedule', function()
         {
-            createScheduleModal.modal('show')
+            createScheduleModal.modal('show');
         })
-
 
         // Add form fields dinamically
         var i = 0;
 
-        $(document).on('click', '#add', function() {
-
-            i++;
-
-            var totalFields = $(".field").length;
-            var maxFields = 6
+        function addDynamicFields(totalFields, maxFields, html)
+        {
+            // var totalFields = $(".field").length;
+            // var maxFields = 6
 
             if (totalFields < maxFields)
             {
-                $('#workingDaysFields, #schedule').append('<div class="form-group flex field added-field"><div><input type="text" name="day['+ i +'][working_day_id]" id="day['+ i +'][working_day_id]" class="form-control day-'+ i +'-working_day_id"><span class="invalid-feedback day-'+ i +'-working_day_id"></span></div><div><input type="text" name="day['+ i +'][start_at]" id="day['+ i +'][start_at]" class="form-control day-'+ i +'-start_at"><span class="invalid-feedback day-'+ i +'-start_at"></span></div><div><input type="text" name="day['+ i +'][end_at]" id="day['+ i +'][end_at]" class="form-control day-'+ i +'-end_at"><span class="invalid-feedback day-'+ i +'-end_at"></span></div><button type="button" class="btn btn-sm btn-remove"><i class="fa fa-remove"></i></button></div>')
+                $('#workingDaysFields, #schedule').append(html)
             }
+
+        }
+
+
+        $(document).on('click', '#add', function() {
+
+            i++;
+            var totalFields = $(".field").length;
+            var maxFields = 6
+
+            var html = ''
+
+            html += '<div class="form-group flex field added-field">'
+
+            html += '<div><input type="text" name="day['+ i +'][working_day_id]" class="form-control day-'+ i +'-working_day_id"><span class="invalid-feedback day-'+ i +'-working_day_id"></span></div>'
+
+            html += '<div><input type="text" name="day['+ i +'][start_at]" class="form-control day-'+ i +'-start_at"><span class="invalid-feedback day-'+ i +'-start_at"></span></div>'
+
+            html += '<div><input type="text" name="day['+ i +'][end_at]" class="form-control day-'+ i +'-end_at"><span class="invalid-feedback day-'+ i +'-end_at"></span></div>'
+
+            html+= '<button type="button" class="btn btn-sm btn-remove"><i class="fa fa-remove"></i></button>'
+
+            html+= '</div>'
+
+            // var html = '<div class="form-group flex field added-field"><div><input type="text" name="day['+ i +'][working_day_id]" class="form-control day-'+ i +'-working_day_id"><span class="invalid-feedback day-'+ i +'-working_day_id"></span></div><div><input type="text" name="day['+ i +'][start_at]" class="form-control day-'+ i +'-start_at"><span class="invalid-feedback day-'+ i +'-start_at"></span></div><div><input type="text" name="day['+ i +'][end_at]" class="form-control day-'+ i +'-end_at"><span class="invalid-feedback day-'+ i +'-end_at"></span></div><button type="button" class="btn btn-sm btn-remove"><i class="fa fa-remove"></i></button></div>'
+
+            addDynamicFields(totalFields, maxFields, html)
         })
+
 
         // Remove form fields dinamically
         $(document).on('click', '.btn-remove', function(){
