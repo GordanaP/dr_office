@@ -1,6 +1,7 @@
 $(document).on('click', '#storeSchedule', function()
 {
-    var day = createScheduleArray('day', 3)
+    var chunkSize = 3;
+    var day = createScheduleArray('day', chunkSize);
     var storeScheduleUrl = '/admin/working_days/' + profile
 
     $.ajax({
@@ -18,7 +19,7 @@ $(document).on('click', '#storeSchedule', function()
         },
         error: function(response)
         {
-            errorResponse(response.responseJSON.errors, createScheduleModal)
+            errorResponse(createScheduleModal, jsonErrors(response))
         }
     })
 })

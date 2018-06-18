@@ -20,7 +20,7 @@ $(document).on('click', '#saveEducation', function(){
             successResponse(educationModal, response.message)
         },
         error: function(response) {
-            errorResponse(getJsonErrors(response), educationModal)
+            errorResponse(educationModal, jsonErrors(response))
         }
     })
 });

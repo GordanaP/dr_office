@@ -11,37 +11,36 @@
 
 @section('content')
 
-    <!-- Page title -->
-    <div class="pb-2 col-md-12">
-        <div class="card border-0" id="pageTitle">
-
-            <h2 class="admin-title-no-button">
+    @component('components.admin.main')
+        @slot('title')
             <span id="userProfileName" class="mr-3">
                 {{ $profile->title }} {{ $profile->getFullName() }}
             </span>
-
             <button type="button" class="btn btn-warning btn-link" id="editProfile" data-name="{{ $profile->user->name }}" value="{{$profile->user->id }}">
                  Edit
             </button>
-            </h2>
-        </div>
-    <hr>
-    </div>
+        @endslot
 
-    <div class="col-md-12">
-        <div class="row">
+        @slot('class')
+        @endslot
 
-            <!-- Profile schedule -->
-            <div class="col-md-3">
-                @include('users.profiles.partials.cards._schedule')
+        @slot('content')
+            <div class="col-md-12">
+                <div class="row">
+
+                    <!-- Profile schedule -->
+                    <div class="col-md-3">
+                        @include('users.profiles.partials.cards._schedule')
+                    </div>
+
+                    <!-- Profile details -->
+                    <div class="col-md-9">
+                        @include('users.profiles.partials.cards._details')
+                    </div>
+                </div>
             </div>
-
-            <!-- Profile details -->
-            <div class="col-md-9">
-                @include('users.profiles.partials.cards._details')
-            </div>
-        </div>
-    </div>
+        @endslot
+    @endcomponent
 
     <!-- Modals -->
     @include('users.profiles.partials.modals._edit')
@@ -55,18 +54,18 @@
     <script>
 
         // Profile
-        var profile = "{{ $profile->slug }}"
-        var profileModal = $('#profileModal')
-        var profileForm = $('#adminProfileForm')
-        var profileFields = ['title', 'first_name', 'last_name']
+        var profile = "{{ $profile->slug }}",
+            profileModal = $('#profileModal'),
+            profileForm = $('#adminProfileForm'),
+            profileFields = ['title', 'first_name', 'last_name']
 
         profileModal.setAutofocus('title')
         profileModal.emptyModal(profileFields)
 
         // Avatar
-        var avatarModal = $('#avatarModal')
-        var avatarForm = $('#userAvatarForm')
-        var avatarFields = ['avatar_options', 'avatar']
+        var avatarModal = $('#avatarModal'),
+            avatarForm = $('#userAvatarForm'),
+            avatarFields = ['avatar_options', 'avatar']
 
         avatarModal.setAutofocus('avatar_options')
         avatarModal.emptyModal(avatarFields)
@@ -86,11 +85,12 @@
             scheduleFieldsName = 'day',
             workingDays = @json($days),
             days = getDays(workingDays),
+            arraySize = 6,
             i = 0
 
         createScheduleModal.on("hidden.bs.modal", function() {
             clearForm($(this))
-            clearServerErrorsForArrayFields(scheduleFieldsName, scheduleFields, 6)
+            clearServerErrorsForArrayFields(scheduleFieldsName, scheduleFields, arraySize)
             $('.field').remove()
         })
 

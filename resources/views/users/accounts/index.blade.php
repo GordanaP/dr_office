@@ -16,6 +16,10 @@
             <button class="btn btn-warning text-uppercase" id="createAccount">New account</button>
         @endslot
 
+        @slot('class')
+            justify-between
+        @endslot
+
         @slot('content')
             @include('users.accounts.partials.tables._html')
         @endslot

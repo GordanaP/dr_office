@@ -22,7 +22,7 @@ $(document).on('click', '#storeAccount', function() {
             successResponse(createAccountModal, response.message)
         },
         error: function(response) {
-            errorResponse(response.responseJSON.errors, createAccountModal)
+            errorResponse(createAccountModal, jsonErrors(response))
         }
     })
 })

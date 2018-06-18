@@ -45,7 +45,7 @@ class AvatarController extends Controller
      * @param  int  $profileId
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
+    public function update(AvatarRequest $request, Profile $profile)
     {
         if($request->ajax()) {
 

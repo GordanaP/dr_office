@@ -18,7 +18,7 @@ $(document).on('click', '#updateRole', function() {
         },
         error: function(response) {
 
-            errorResponse(response.responseJSON.errors, roleModal)
+            errorResponse(roleModal, jsonErrors(response))
         }
     })
 });

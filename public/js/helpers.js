@@ -158,7 +158,7 @@ function swalDelete(url, name, datatable, field)
  * @param  {string} modal
  * @return {[void]}
  */
-function errorResponse(errors, modal)
+function errorResponse(modal, errors)
 {
     if(errors) {
         displayErrors(errors)
@@ -603,11 +603,8 @@ function clearServerErrorsForArrayFields(arrayName, arrayFields, arraySize)
     {
         for (var i = 0; i < arraySize; i++) {
 
-            var field = $("."+ arrayName +"-"+ i +"-"+ name);
-            var feedback = $("span." + arrayName +"-"+ i +"-" + name).hide();
-
-            field.removeClass('is-invalid');
-            feedback.text('');
+            var field = $("."+ arrayName +"-"+ i +"-"+ name).removeClass('is-invalid');
+            var feedback = $("span." + arrayName +"-"+ i +"-" + name).hide().text('');
         }
     });
 }
@@ -700,4 +697,9 @@ function removeErrorOnNewInput()
         $(this).removeClass('is-invalid');
         $(this).siblings(".invalid-feedback").hide().text('');
     });
+}
+
+function jsonErrors(response)
+{
+    return response.responseJSON.errors
 }

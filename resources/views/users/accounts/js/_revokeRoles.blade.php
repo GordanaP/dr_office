@@ -19,7 +19,7 @@ $(document).on('click', '#revokeRoles', function(){
             successResponse(revokeRolesModal, response.message)
         },
         error: function(response) {
-            errorResponse(response.responseJSON.errors, revokeRolesModal)
+            errorResponse(revokeRolesModal, jsonErrors(response))
         }
     })
 })

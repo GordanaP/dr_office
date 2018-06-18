@@ -21,7 +21,7 @@ $(document).on('click', '#saveProfile', function() {
             successResponse(profileModal, response.message)
         },
         error: function(response) {
-            errorResponse(response.responseJSON.errors, profileModal)
+            errorResponse(profileModal, jsonErrors(response))
         }
     })
 });

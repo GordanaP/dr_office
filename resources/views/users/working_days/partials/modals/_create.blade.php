@@ -18,7 +18,7 @@
                             <!-- Working day -->
                             <div>
                                 <label for="">Working day</label>
-                                <select name="day-0-working_day_id" class="form-control day-0-working_day_id">
+                                <select name="day[0][working_day_id]" class="form-control day-0-working_day_id">
                                     <option value="">Day</option>
                                     @foreach ($days as $day)
                                         <option value="{{ $day->id }}">{{ $day->name }}</option>
@@ -30,14 +30,14 @@
                             <!-- Start -->
                             <div>
                                 <label for="">Start</label>
-                                <input type="text" class="form-control day-0-start_at" name="day[0][start_at]" />
+                                <input type="text" class="form-control day-0-start_at" placeholder="00:00" name="day[0][start_at]" />
                                 <span class="invalid-feedback day-0-start_at"></span>
                             </div>
 
                             <!-- End -->
                             <div>
                                 <label for="">End</label>
-                                <input type="text" class="form-control day-0-end_at" name="day[0][end_at]" />
+                                <input type="text" class="form-control day-0-end_at" placeholder="00:00" name="day[0][end_at]" />
                                 <span class="invalid-feedback day-0-end_at"></span>
                             </div>
 

@@ -22,7 +22,7 @@ $(document).on('click', '#saveAvatar', function() {
         },
         error: function(response)
         {
-            errorResponse(response.responseJSON.errors, avatarModal)
+            errorResponse(avatarModal, jsonErrors(response))
         }
     })
 })

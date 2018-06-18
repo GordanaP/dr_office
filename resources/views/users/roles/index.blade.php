@@ -10,6 +10,10 @@
             <button class="btn btn-warning" id="createRole">New role</button>
         @endslot
 
+        @slot('class')
+            justify-between
+        @endslot
+
         @slot('content')
             @include('users.roles.partials._cards', ['roles' => $roles])
         @endslot

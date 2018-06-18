@@ -35,7 +35,7 @@ $(document).on('click', '#updateAccount', function() {
             successResponse(editAccountModal, response.message)
         },
         error: function(response) {
-            errorResponse(response.responseJSON.errors, editAccountModal)
+            errorResponse(editAccountModal, jsonErrors(response))
         }
     })
 });
