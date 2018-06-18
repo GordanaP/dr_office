@@ -529,7 +529,8 @@ function checkedValues(checkbox)
  * @param  {int} chunkSize
  * @return {array}
  */
-function chunkArray(myArray, chunkSize){
+function chunkArray(myArray, chunkSize)
+{
     var index = 0;
     var arrayLength = myArray.length;
     var tempArray = [];
@@ -538,7 +539,6 @@ function chunkArray(myArray, chunkSize){
 
         myChunk = myArray.slice(index, index+chunkSize);
 
-        // Do something if you want with the group
         tempArray.push(myChunk);
     }
 
@@ -552,15 +552,15 @@ function chunkArray(myArray, chunkSize){
  * @param  {integer} chunkSize
  * @return {array}
  */
-function getChunkedValues(inputArrayName, chunkSize)
+function getChunks(arrayName, chunkSize)
 {
-    var inputValues = $( "input[name*="+ inputArrayName +"]" ).map(function() {
-        return ($( this ).val());
+    var values = $( "select[name*="+ arrayName +"], input[name*="+ arrayName +"]" ).map(function() {
+        return this.value;
     }).get()
 
-    var chunkedValues = chunkArray(inputValues, chunkSize);
+    var chunks = chunkArray(values, chunkSize);
 
-    return chunkedValues;
+    return chunks;
 }
 
 /**
@@ -570,22 +570,22 @@ function getChunkedValues(inputArrayName, chunkSize)
  * @param  {integer} chunkSize
  * @return {array}                [multidimensional array]
  */
-function createScheduleArray(inputArrayName, chunkSize)
+function createScheduleArray(arrayName, chunkSize)
 {
-    var chunked = getChunkedValues(inputArrayName, chunkSize)
+    var chunks = getChunks(arrayName, chunkSize)
 
-    var day = [];
+    var days = [];
 
-    for (var i = 0; i < chunked.length; i++) {
+    for (var i = 0; i < chunks.length; i++) {
 
-        day[i] = {
-            'working_day_id': chunked[i][0],
-            'start_at': chunked[i][1],
-            'end_at': chunked[i][2],
+        days[i] = {
+            'working_day_id': chunks[i][0],
+            'start_at': chunks[i][1],
+            'end_at': chunks[i][2],
         }
     }
 
-    return day;
+    return days;
 }
 
 /**
@@ -609,4 +609,79 @@ function clearServerErrorsForInputArray(arrayName, arrayFields, arraySize)
             feedback.text('');
         }
     });
+}
+
+/**
+ * Add dynamic fields
+ *
+ * @param {int} totalFields
+ * @param {int} maxFields
+ * @param {string} targetElement
+ * @param {string} html
+ */
+function addDynamicFields(totalFieldsNumber, maxFieldsNumber, targetElement, html)
+{
+    if (totalFieldsNumber < maxFieldsNumber)
+    {
+        targetElement.append(html)
+    }
+}
+
+/**
+ * Make a new array
+ *
+ * @param  {array} fields
+ * @return {array}
+ */
+function makeNewArray(fields)
+{
+    var tempArray = []
+
+    $.each(fields, function(index, field) {
+
+        tempArray.push(field.id)
+
+        tempArray.sort()
+    });
+
+    return tempArray
+}
+
+/**
+ * Get days
+ *
+ * @param  {array} days
+ * @return {array}
+ */
+function getDays(days)
+{
+    var tempArray = [];
+
+    $.each(days, function(index, day) {
+         tempArray.push([day.id, day.name]);
+    });
+
+    return tempArray;
+}
+
+/**
+ * Find missing value in a sequence of values
+ *
+ * @param  {array} array
+ * @return {int}
+ */
+function findMissingValue(array)
+{
+    var missing;
+
+    for(var i=1;i<=array.length;i++)
+    {
+       if(array[i-1] != i) {
+
+            missing = i;
+            break;
+       }
+    }
+
+    return i
 }

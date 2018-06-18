@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\WorkingDayRequest;
 use App\Profile;
 use App\User;
+use App\WorkingDay;
 use Illuminate\Http\Request;
 
 class TestController extends Controller

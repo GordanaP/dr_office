@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequest;
 use App\Profile;
 use App\User;
+use App\WorkingDay;
 
 class ProfileController extends Controller
 {
@@ -41,6 +42,7 @@ class ProfileController extends Controller
     {
         return view('users.profiles.edit')->with([
             'profile' => $profile->load('avatar'),
+            'days' => WorkingDay::all()
         ]);
     }
 

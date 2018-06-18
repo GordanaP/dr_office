@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\WorkingDay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,10 @@ class PageController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $days = WorkingDay::all();
+        $profile = \App\Profile::first();
+
+        return view('welcome', compact('days', 'profile'));
     }
 
     /**
