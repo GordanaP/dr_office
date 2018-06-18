@@ -6,7 +6,6 @@
     <style>
         #userEducation p { margin-left: 18px; margin-bottom: 8px; }
         button { border-radius: 0 !important }
-        .is-hidden {display: none}
     </style>
 @endsection
 
@@ -55,9 +54,8 @@
 @section('scripts')
     <script>
 
-        var profile = "{{ $profile->slug }}"
-
         // Profile
+        var profile = "{{ $profile->slug }}"
         var profileModal = $('#profileModal')
         var profileForm = $('#adminProfileForm')
         var profileFields = ['title', 'first_name', 'last_name']
@@ -80,6 +78,21 @@
 
         educationModal.setAutofocus('education')
         educationModal.emptyModal(educationFields)
+
+        // Working days
+        var createScheduleModal = $('#createScheduleModal'),
+            createScheduleForm = $('#createScheduleForm'),
+            scheduleFields = ['working_day_id', 'start_at', 'end_at'],
+            scheduleFieldsName = 'day',
+            workingDays = @json($days),
+            days = getDays(workingDays),
+            i = 0
+
+        createScheduleModal.on("hidden.bs.modal", function() {
+            clearForm($(this))
+            clearServerErrorsForArrayFields(scheduleFieldsName, scheduleFields, 6)
+            $('.field').remove()
+        })
 
         // Edit profile
         @include('users.profiles.js._edit')
@@ -105,25 +118,8 @@
         // Create schedule
         @include('users.profiles.js.schedule._create')
 
-
-        // Working days
-        var createScheduleModal = $('#createScheduleModal'),
-            createScheduleForm = $('#createScheduleForm'),
-            scheduleFields = ['working_day_id', 'start_at', 'end_at'],
-            scheduleFieldsName = 'day',
-            workingDays = @json($days),
-            days = getDays(workingDays),
-            i = 0
-
-        createScheduleModal.on("hidden.bs.modal", function() {
-            clearForm($(this))
-            clearServerErrorsForInputArray(scheduleFieldsName, scheduleFields, 6)
-            $('.field').remove()
-        })
-
         // Create schedule
         @include('users.profiles.js.schedule._create')
-
 
         // Manipulate dynamic fileds
         @include('users.profiles.js.schedule._dynamic_fields')

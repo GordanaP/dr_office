@@ -162,7 +162,8 @@ function errorResponse(errors, modal)
 {
     if(errors) {
         displayErrors(errors)
-        clearErrorOnNewInput()
+        //clearErrorOnNewInput()
+        removeErrorOnNewInput()
     }
     else {
         userNotification("This action is unauthorized", "error")
@@ -218,9 +219,9 @@ function clearErrorOnNewInput()
     $("select").on('change', function () {
 
         var select_id = $(this).attr('id');
-        var id = select_id.charAt(0) == '_' ? select_id.substring(1) : select_id
+        // var id = select_id.charAt(0) === '_' ? select_id.substring(1) : select_id
 
-        clearError(id)
+        clearError(select_id)
     });
 
     $("input[type=checkbox], input[type=radio]").click(function() {
@@ -596,7 +597,7 @@ function createScheduleArray(arrayName, chunkSize)
  * @param  {integer} arraySize
  * @return {void}
  */
-function clearServerErrorsForInputArray(arrayName, arrayFields, arraySize)
+function clearServerErrorsForArrayFields(arrayName, arrayFields, arraySize)
 {
     $.each(arrayFields, function (index, name)
     {
@@ -684,4 +685,19 @@ function findMissingValue(array)
     }
 
     return i
+}
+
+function removeErrorOnNewInput()
+{
+    $("input, textarea").on('keydown', function() {
+
+        $(this).removeClass('is-invalid');
+        $(this).siblings(".invalid-feedback").hide().text('');
+    })
+
+    $("select").on('change', function () {
+
+        $(this).removeClass('is-invalid');
+        $(this).siblings(".invalid-feedback").hide().text('');
+    });
 }

@@ -18,33 +18,27 @@
                             <!-- Working day -->
                             <div>
                                 <label for="">Working day</label>
-                                <div>
-                                    <select name="day-0-working_day_id" class="form-control day-0-working_day_id">
-                                        <option value="">Day</option>
-                                        @foreach ($days as $day)
-                                            <option value="{{ $day->id }}">{{ $day->name }}</option>
-                                        @endforeach
-                                        <span class="invalid-feedback day-0-working_day_id"></span>
-                                    </select>
-                                </div>
+                                <select name="day-0-working_day_id" class="form-control day-0-working_day_id">
+                                    <option value="">Day</option>
+                                    @foreach ($days as $day)
+                                        <option value="{{ $day->id }}">{{ $day->name }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="invalid-feedback day-0-working_day_id"></span>
                             </div>
 
                             <!-- Start -->
                             <div>
                                 <label for="">Start</label>
-                                <div>
-                                    <input type="text" class="form-control day-0-start_at" name="day[0][start_at]" />
-                                    <span class="invalid-feedback day-0-start_at"></span>
-                                </div>
+                                <input type="text" class="form-control day-0-start_at" name="day[0][start_at]" />
+                                <span class="invalid-feedback day-0-start_at"></span>
                             </div>
 
                             <!-- End -->
                             <div>
                                 <label for="">End</label>
-                                <div>
-                                    <input type="text" class="form-control day-0-end_at" name="day[0][end_at]" />
-                                    <span class="invalid-feedback day-0-end_at"></span>
-                                </div>
+                                <input type="text" class="form-control day-0-end_at" name="day[0][end_at]" />
+                                <span class="invalid-feedback day-0-end_at"></span>
                             </div>
 
                             <!-- Add button -->
