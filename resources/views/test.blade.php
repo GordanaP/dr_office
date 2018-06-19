@@ -32,11 +32,10 @@
         @endforeach
     </div>
 
-    <button type="button" class="btn btn-info" id="{{ $profile->hasSchedule() ? 'editDay' : 'newDay' }}">
-        {{ $profile->hasSchedule() ? 'Change' : 'New' }}
+    <button type="button" class="btn btn-info" id="editSchedule">
+        Change
     </button>
 
-    @include('users.working_days.partials.modals._create')
     @include('users.working_days.partials.modals._edit')
 
 @endsection
@@ -51,51 +50,45 @@
         });
 
         var profile = "{{ $profile->slug }}";
-        var createDayModal = $('#createDayModal');
-        var editDayModal = $('#editDayModal');
-        var dayFields = ('day')
+        var editScheduleModal = $('#editScheduleModal');
+        var editScheduleForm = $('#editScheduleForm');
+        var cheduleFields = ('day')
 
-        createDayModal.emptyModal(dayFields)
 
-        var i = 0;
-        var maxFields = 6;
+        $(document).on('click', '#editSchedule', function(){
 
-        $(document).on('click', '#newDay', function(){
+            editScheduleModal.modal('show')
 
-            createDayModal.modal('show')
+            var showProfileUrl = '/tests/' + profile
 
-        })
-
-        $(document).on('click', '#add', function() {
-
-            i++;
-
-            var totalFields = $(".field").length;
-
-            if (totalFields < maxFields) {
-                $('#workingDaysFields, #schedule').append('<div class="form-group flex field"><input type="text" name="day[' + i + '][working_day_id]" id="day[' + i + '][working_day_id]" class="form-control day"><input type="text" name="day[' + i + '][start_at]" id="day[' + i + '][start_at]" class="form-control day"><input type="text" name="day[' + i + '][end_at]"id="day[' + i + '][end_at]" class="form-control day"><button type="button" class="btn btn-sm btn-remove"><i class="fa fa-remove"></i></button></div>')
-            }
-        })
-
-        $(document).on('click', '.btn-remove', function(){
-            $(this).parent('div').remove()
-        })
-
-        $(document).on('click', '#changeDay', function(){
-
-            function chunkArray(myArray, chunk_size){
-                var index = 0;
-                var arrayLength = myArray.length;
-                var tempArray = [];
-
-                for (index = 0; index < arrayLength; index += chunk_size) {
-                    myChunk = myArray.slice(index, index+chunk_size);
-                    // Do something if you want with the group
-                    tempArray.push(myChunk);
+            $.ajax({
+                url: showProfileUrl,
+                type: 'GET',
+                success : function(response)
+                {
+                    $('#updatedSchedule').html(response.html)
                 }
+            });
+        })
 
-                return tempArray;
-            }
+        // $(document).on('click', '#editDay', function()
+        // {
+        //     editDayModal.modal('show')
+
+        //     var showProfileUrl = '/tests/' + profile
+
+        //     $.ajax({
+        //         url: showProfileUrl,
+        //         type: 'GET',
+        //         success : function(response)
+        //         {
+        //             $('#schedule').html(response.html)
+        //         }
+        //     });
+        // });
+
+
+        $(document).on('click', '#updateSchedule', function(){
 
             var dayFields = $( "input[name*=day]" ).map(function() {
                 return ($( this ).val());
@@ -132,21 +125,6 @@
             })
         })
 
-        $(document).on('click', '#editDay', function()
-        {
-            editDayModal.modal('show')
-
-            var showProfileUrl = '/tests/' + profile
-
-            $.ajax({
-                url: showProfileUrl,
-                type: 'GET',
-                success : function(response)
-                {
-                    $('#schedule').html(response.html)
-                }
-            });
-        });
 
     </script>
 @endsection

@@ -51,7 +51,9 @@ class TestController extends Controller
     {
         if(request()->ajax())
         {
-            $html = view('users.working_days.partials._html_edit', compact('profile'))->render();
+            $days = WorkingDay::all();
+
+            $html = view('users.working_days.partials._html_edit', compact('profile', 'days'))->render();
 
             return response([
                 'profile' => $profile->load('workingDays'),
@@ -69,7 +71,9 @@ class TestController extends Controller
      */
     public function edit(Profile $profile)
     {
-        return view('test', compact('profile'));
+        $days = \App\WorkingDay::all();
+
+        return view('test', compact('profile', 'days'));
     }
 
     /**

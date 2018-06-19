@@ -38,7 +38,7 @@ trait HasSchedule
     /**
      * Create or update profile's schedule
      *
-     * @param  array $array
+     * @param  array $days
      * @return void
      */
     public function createOrUpdateSchedule($days)
@@ -63,7 +63,7 @@ trait HasSchedule
      */
     protected function workingDaysArray($array)
     {
-        $fields = $this->dayArrayFields();
+        $fields = $this->dayArrayKeys();
 
         $daysCollection = $this->daysCollection($array);
 
@@ -87,10 +87,9 @@ trait HasSchedule
      */
     protected function daysCollection($array)
     {
-        $fields = $this->dayArrayFields();
+        $fields = $this->dayArrayKeys();
         $days = [];
 
-        // Create a single day array only if working_day is present
         for ($i=0; $i < sizeof($array) ; $i++)
         {
             if ($array[$i][$fields[0]])
@@ -103,11 +102,11 @@ trait HasSchedule
     }
 
     /**
-     * Get day array fields
+     * Get day array keys
      *
      * @return array
      */
-    protected function dayArrayFields()
+    protected function dayArrayKeys()
     {
         return ['working_day_id', 'start_at', 'end_at'];
     }

@@ -28,7 +28,7 @@ class WorkingDayRequest extends FormRequest
             'day.0.working_day_id' => 'required|exists:working_days,index',
             'day.*.working_day_id' => 'nullable|required_with:day.*.start_at,day.*.end_at|exists:working_days,index|distinct',
             'day.*.start_at' => 'nullable|date_format:H:i',
-            'day.*.end_at' => 'nullable|date_format:H:i|',
+            'day.*.end_at' => 'nullable|date_format:H:i',
         ];
 
     }
