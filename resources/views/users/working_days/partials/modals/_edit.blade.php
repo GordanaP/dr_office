@@ -9,7 +9,7 @@
             </div>
             <form id='editScheduleForm'>
                 <div class="modal-body">
-                    <div id="updatedSchedule">
+                    <div id="workingDaysUpdated">
 
                     </div>
                 </div>

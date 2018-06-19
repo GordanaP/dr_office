@@ -1,7 +1,6 @@
 @for ($i = 0; $i < count($profile->workingDays) ; $i++)
 
     <div class="form-group flex align-center {{ $i > 0 ? 'field' : ''}}" id="{{ $i }}" id="{{ $i }}" >
-
         <div>
             @if ($i == 0)
                 <label for="">Working day</label>
@@ -35,15 +34,12 @@
             <span class="invalid-feedback day-{{ $i }}-end_at"></span>
         </div>
 
-        <div>
-            @if ($i == 0)
-                <label for=""></label>
-            @endif
-            <button type="button" class="btn {{ $i > 0 ? 'btn-remove' : '' }}" id="{{ $i > 0 ? '' : 'addDay' }}">
-                <i class="fa {{ $i > 0 ? 'fa-remove' : 'fa-plus' }}"></i>
-            </button>
-        </div>
-
+        @if ($i == 0)
+            <label for=""></label>
+        @endif
+        <button type="button" class="btn {{ $i > 0 ? 'btn-remove' : '' }}" id="{{ $i > 0 ? '' : 'addDay' }}">
+            <i class="fa {{ $i > 0 ? 'fa-remove' : 'fa-plus' }}"></i>
+        </button>
     </div>
 
 @endfor
