@@ -12,7 +12,7 @@
     <div class="card-body mt-3">
         <h5 class="card-title align-center justify-between flex mb-0">
             <span>Working days</span>
-            <button type="button" class="btn btn-info rounded-none btn-schedule" id="{{ $profile->hasSchedule() ? 'changeSchedule' : 'createSchedule'}}">
+            <button type="button" class="btn btn-info rounded-none btn-schedule" id="{{ $profile->hasSchedule() ? 'editSchedule' : 'createSchedule'}}">
                 {{ $profile->hasSchedule() ? 'Change' : 'Add'}}
             </button>
         </h5>

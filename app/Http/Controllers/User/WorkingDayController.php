@@ -78,7 +78,7 @@ class WorkingDayController extends Controller
      * @param  \App\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(WorkingDayRequest $request, Profile $profile)
+    public function update(Request $request, Profile $profile)
     {
         $profile->createOrUpdateSchedule($request->day);
 

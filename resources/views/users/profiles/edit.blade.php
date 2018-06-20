@@ -47,6 +47,7 @@
     @include('users.profiles.partials.modals._education')
     @include('users.avatars.partials.modals._edit')
     @include('users.working_days.partials.modals._create')
+    @include('users.working_days.partials.modals._edit')
 
 @endsection
 
@@ -94,6 +95,15 @@
             $('.field').remove()
         })
 
+        var editScheduleModal = $('#editScheduleModal'),
+            editScheduleForm = $('#editScheduleForm')
+
+        editScheduleModal.on("hidden.bs.modal", function() {
+            clearForm($(this))
+            clearServerErrorsForArrayFields(scheduleFieldsName, scheduleFields, arraySize)
+            $('.field').remove()
+        })
+
         // Edit profile
         @include('users.profiles.js._edit')
 
@@ -118,14 +128,45 @@
         // Create schedule
         @include('users.profiles.js.schedule._create')
 
-        // Create schedule
-        @include('users.profiles.js.schedule._create')
+        // Manipulate dynamic fields
+        @include('users.profiles.js.schedule._dyn_fields_create')
 
-        // Manipulate dynamic fileds
-        @include('users.profiles.js.schedule._dynamic_fields')
+        @include('users.profiles.js.schedule._dyn_fields_edit')
+
+        // Edit schedule
+        @include('users.profiles.js.schedule._edit')
 
         // Store schedule
         @include('users.profiles.js.schedule._store')
+
+        // Update schedule
+
+        $(document).on('click', '#updateSchedule', function(){
+
+            var chunkSize = 3;
+            var day = createScheduleArray('day', chunkSize);
+            var updateScheduleUrl = '/admin/working_days/' + profile
+
+            console.log(day)
+            // $.ajax({
+            //     url: updateScheduleUrl,
+            //     type: "PATCH",
+            //     data: {
+            //         day: day
+            //     },
+            //     success: function(response)
+            //     {
+            //         $('#displaySchedule').load(location.href + ' #displaySchedule')
+            //         $('.btn-schedule').text('Change')
+
+            //         successResponse(editScheduleModal, response.message)
+            //     },
+            //     error: function(response)
+            //     {
+            //         errorResponse(editScheduleModal, jsonErrors(response))
+            //     }
+            // })
+        })
 
     </script>
 @endsection
