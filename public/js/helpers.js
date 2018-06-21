@@ -684,6 +684,7 @@ function findMissingValue(array)
     return i
 }
 
+
 function removeErrorOnNewInput()
 {
     $("input, textarea").on('keydown', function() {
@@ -702,4 +703,30 @@ function removeErrorOnNewInput()
 function jsonErrors(response)
 {
     return response.responseJSON.errors
+}
+
+/**
+ * Get dynamic options
+ *
+ * @param  {string} selectBox
+ * @param  {array} optionsArray
+ * @param  {array} selectedOptions
+ * @return {'string'}
+ */
+function getDynamicOptions(selectBox, optionsArray, selectedOptions)
+{
+    $('option', selectBox).remove();
+
+    for(day of days) {
+
+        var option = new Option(day[1], day[0]); // text, value
+
+        day[0] == selectedOptions ? option.selected=true : '';
+
+        selectBox.append($(option));
+    };
+
+    $('select :nth-child(1)').before("<option value=''>Select a day</option>");
+
+    return selectBox;
 }
