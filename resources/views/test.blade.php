@@ -38,12 +38,6 @@
 @section('scripts')
     <script>
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        })
-
         var scheduleUrl = "{{ route('tests.update', $profile)  }}",
             createScheduleModal = $('#createScheduleModal'),
             editScheduleModal = $('#editScheduleModal'),
@@ -93,6 +87,8 @@
                 {
                     const schedule = response.profile.working_days
 
+                    var daysIds = []
+
                     for(let day of schedule)
                     {
                         var index = schedule.indexOf(day) // start counting fields with 0 to get proper dyn field action button
@@ -102,6 +98,8 @@
                         var dynamicIcon = index > 0 ? 'fa-remove' : 'fa-plus'
                         var start = day.work.start_at ? day.work.start_at : '00:00'
                         var end = day.work.end_at ? day.work.end_at : '00:00'
+
+                        daysIds.push(day.id)
 
                         var html = ''
 
@@ -115,30 +113,37 @@
 
                         html += '<div class="form-group col-md-1"><button type="button" class="btn btn-dynamic '+ btnRemove +' " id="'+ addEditSchedule +'"><i class="fa '+ dynamicIcon +'" ></i></button></div></div>'
 
-
                         $('#editFormGroups').append(html)
 
-                        var sel_opn = $("select[name*=day]")
-                        var id = day.id
-                        getDynamicOptions(sel_opn, days, id)
+                        let select = $("select[name*=day]")
 
-                        // $('option', sel_opn).remove();
+                        getDynamicOptions(select, days, daysIds)
 
-                        // $.each(days, function(key, value) {
+                    }
 
-                        //     var option = new Option(value[1], value[0]); // text, value
+                    let select = $("select[name*=day]")
 
-                        //     value[0] == day.id ? option.selected=true : '';
+                    var ids = [1, 4]
 
-                        //     sel_opn.append($(option));
+                    console.log(daysIds)
 
-                        // });
+                    for (var i = 0; i < select.length; i++) {
 
-                        // $('select :nth-child(1)').before("<option value=''>Select a day</option>");
+
+                        // for (var i = 0; i < ids.length; i++) {
+                            select[i].selectedIndex = daysIds[i]
+                            // select[1].selectedIndex = ids[1]
+                        // }
+
+                        //console.log(select[i].value)
+
+                        //var options = select[i].options
+                        //console.log(options)
 
                     }
                 }
             });
+
         })
 
         $(document).on('click', '#updateSchedule', function(){
@@ -166,5 +171,3 @@
 
     </script>
 @endsection
-
-{{-- <option value="'+ days[0][0] +'" selected="selected">'+ days[0][1] +'</option><option value="'+ days[1][0] +'">'+ days[1][1] +'</option><option value="'+ days[2][0] +'">'+ days[2][1] +'</option><option value="'+ days[3][0] +'">'+ days[3][1] +'</option><option value="'+ days[4][0] +'">'+ days[4][1] +'</option><option value="'+ days[5][0] +'">'+ days[5][1] +'</option></select> --}}

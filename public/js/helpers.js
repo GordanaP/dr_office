@@ -721,9 +721,9 @@ function getDynamicOptions(selectBox, optionsArray, selectedOptions)
 
         var option = new Option(day[1], day[0]); // text, value
 
-        day[0] == selectedOptions ? option.selected=true : '';
-
         selectBox.append($(option));
+
+        day[0] == 4 ? option.selected=true : '';
     };
 
     $('select :nth-child(1)').before("<option value=''>Select a day</option>");
